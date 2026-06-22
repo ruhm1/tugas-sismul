@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-gold-50: #fcfaf2;
+  --color-gold-100: #faf1df;
+  --color-gold-200: #f4dfbe;
+  --color-gold-300: #ecc691;
+  --color-gold-400: #e2a65f;
+  --color-gold-500: #C5A059;
+  --color-gold-600: #8E6E3A;
+  --color-gold-700: #735528;
+  --color-gold-800: #583F1E;
+  --color-gold-900: #3E2C15;
+  --color-gold-950: #1D1409;
+
+  --color-sophisticated-bg: #0A0A0B;
+  --color-sophisticated-gold: #C5A059;
+  --color-sophisticated-gold-hover: #8E6E3A;
+}
+
+/* Custom gorgeous scrollbar for GOURMET styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 11, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(197, 160, 89, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(197, 160, 89, 0.5);
+}
+
+

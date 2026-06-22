@@ -1,0 +1,6 @@
+{
+  "name": "Gourmet Luxury Dining",
+  "description": "An interactive, ultra-polished modern Michelin-starred experience featuring seasonal menus, immersive visual odyssey galleries, live reservation booking, real-time administrative dashboards, and an AI Sommelier.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
