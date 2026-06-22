@@ -1,8 +1,8 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import fs from "fs";
 import { createServer as createViteServer } from "vite";
-import dotenv from "dotenv";
 
 // Security
 import { helmetMiddleware, corsMiddleware, rateLimiter } from "./src/server/middleware/security";
@@ -17,8 +17,6 @@ import contactRoutes from "./src/server/routes/contacts";
 import restaurantRoutes from "./src/server/routes/restaurant";
 import chatbotRoutes from "./src/server/routes/chatbot";
 import adminRoutes from "./src/server/routes/admin";
-
-dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
