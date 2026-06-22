@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Eye, X, Compass, Flame, Info, ZoomIn } from 'lucide-react';
-import { DEFAULT_GALLERY_ITEMS } from '../data';
+import api from '../services/api';
 import { GalleryItem } from '../types';
 
 export default function GalleryView() {
-  const [galleryItems] = useState<GalleryItem[]>(DEFAULT_GALLERY_ITEMS);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<'ALL' | 'FOOD' | 'INTERIOR' | 'EVENTS' | 'CHEF'>('ALL');
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryItem | null>(null);
+
+  useEffect(() => {
+    api.get('/gallery').then(res => {
+      setGalleryItems(res.data || []);
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, []);
 
   const filterChips: ('ALL' | 'FOOD' | 'INTERIOR' | 'EVENTS' | 'CHEF')[] = ['ALL', 'FOOD', 'INTERIOR', 'EVENTS', 'CHEF'];
 
@@ -47,6 +55,9 @@ export default function GalleryView() {
         </div>
 
         {/* Masonry-inspired bento grid */}
+        {loading ? (
+          <div className="py-20 flex justify-center"><div className="w-10 h-10 border-2 border-[#C5A059] border-t-transparent rounded-full animate-spin" /></div>
+        ) : (
         <motion.div
           layout
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -90,6 +101,7 @@ export default function GalleryView() {
             </motion.div>
           ))}
         </motion.div>
+        )}
       </div>
 
       {/* Fullscreen elegant Lightbox Modal */}

@@ -3,14 +3,16 @@ export interface MenuItem {
   name: string;
   price: number;
   description: string;
-  category: 'Appetizers' | 'Mains' | 'Desserts' | 'Wines';
+  category: string;
   tags: string[];
   image: string;
   isSignature?: boolean;
+  isAvailable?: boolean;
 }
 
 export interface Reservation {
   id: string;
+  reservationCode: string;
   userName: string;
   email: string;
   phone: string;
@@ -18,7 +20,7 @@ export interface Reservation {
   time: string;
   guestsCount: number;
   specialRequests?: string;
-  status: 'Confirmed' | 'Pending' | 'Cancelled';
+  status: 'Confirmed' | 'Pending' | 'Completed' | 'Cancelled';
   createdAt: string;
 }
 
@@ -38,8 +40,8 @@ export interface ChatMessage {
 }
 
 export interface DashboardStats {
+  totalMenu: number;
   totalReservations: number;
-  todayRevenue: number;
-  activeMenuItems: number;
-  vipGuestsCount: number;
+  totalPromos: number;
+  totalContacts: number;
 }

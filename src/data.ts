@@ -165,6 +165,7 @@ export const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
 export const DEFAULT_RESERVATIONS: Reservation[] = [
   {
     id: 'res-1',
+    reservationCode: 'GRT-20260625-001',
     userName: 'Eleanor Vance',
     email: 'eleanor.vance@vip.com',
     phone: '+1 (555) 123-4567',
@@ -177,6 +178,7 @@ export const DEFAULT_RESERVATIONS: Reservation[] = [
   },
   {
     id: 'res-2',
+    reservationCode: 'GRT-20260625-002',
     userName: 'Jameson & Co.',
     email: 'j.jameson@jamesoncorp.com',
     phone: '+1 (555) 987-6543',
@@ -189,6 +191,7 @@ export const DEFAULT_RESERVATIONS: Reservation[] = [
   },
   {
     id: 'res-3',
+    reservationCode: 'GRT-20260626-003',
     userName: 'Sarah Lin',
     email: 'sarah.lin@gmail.com',
     phone: '+1 (555) 444-5555',

@@ -22,6 +22,11 @@
   --color-sophisticated-bg: #0A0A0B;
   --color-sophisticated-gold: #C5A059;
   --color-sophisticated-gold-hover: #8E6E3A;
+
+  /* Spec colors */
+  --color-primary: #B91C1C;
+  --color-secondary: #111827;
+  --color-accent: #F59E0B;
 }
 
 /* Custom gorgeous scrollbar for GOURMET styling */
