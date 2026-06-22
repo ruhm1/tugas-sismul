@@ -1,9 +1,8 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { db } from '../config/firebase';
 import { GoogleGenAI } from '@google/genai';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 
-const prisma = new PrismaClient();
 const router = Router();
 
 let aiClient: GoogleGenAI | null = null;
@@ -23,13 +22,17 @@ router.post('/', async (req: Request, res: Response) => {
   if (!message) return res.status(400).json({ error: 'Message is required.' });
 
   const apiKey = process.env.GEMINI_API_KEY;
+
+  // Fetch knowledge base from Firestore
+  const knowledgeSnap = await db.collection('chatbot_knowledge').where('isActive', '==', true).get();
+  const knowledge = knowledgeSnap.docs.map(d => d.data());
+
   if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
-    // Fallback responses
-    const knowledge = await prisma.chatbotKnowledge.findMany({ where: { isActive: true } });
-    const match = knowledge.find((k) =>
-      message.toLowerCase().includes(k.question.toLowerCase().slice(0, 30))
+    // Fallback responses from knowledge base
+    const match = knowledge.find((k: any) =>
+      message.toLowerCase().includes(k.question?.toLowerCase().slice(0, 30))
     );
-    if (match) return res.json({ text: match.answer });
+    if (match) return res.json({ text: (match as any).answer });
 
     return res.json({
       text: 'Welcome to GOURMET. I am your AI Sommelier. Ask me about our menu, reservations, or wine pairings.',
@@ -37,8 +40,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
 
   try {
-    const knowledge = await prisma.chatbotKnowledge.findMany({ where: { isActive: true } });
-    const knowledgeContext = knowledge.map((k) => `Q: ${k.question}\nA: ${k.answer}`).join('\n\n');
+    const knowledgeContext = knowledge.map((k: any) => `Q: ${k.question}\nA: ${k.answer}`).join('\n\n');
 
     const ai = getGemini();
     const chat = ai.chats.create({
@@ -59,7 +61,8 @@ router.post('/', async (req: Request, res: Response) => {
 // GET /api/chatbot/knowledge - protected
 router.get('/knowledge', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
-    const items = await prisma.chatbotKnowledge.findMany({ orderBy: { category: 'asc' } });
+    const snap = await db.collection('chatbot_knowledge').get();
+    const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     res.json(items);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -70,10 +73,17 @@ router.get('/knowledge', authMiddleware, async (req: AuthRequest, res: Response)
 router.post('/knowledge', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
     const { question, answer, category } = req.body;
-    const item = await prisma.chatbotKnowledge.create({
-      data: { question, answer, category: category || 'general' },
-    });
-    res.status(201).json(item);
+    const data = {
+      question,
+      answer,
+      category: category || 'general',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const ref = await db.collection('chatbot_knowledge').add(data);
+    res.status(201).json({ id: ref.id, ...data });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -82,7 +92,7 @@ router.post('/knowledge', authMiddleware, async (req: AuthRequest, res: Response
 // DELETE /api/chatbot/knowledge/:id - protected
 router.delete('/knowledge/:id', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
-    await prisma.chatbotKnowledge.delete({ where: { id: req.params.id } });
+    await db.collection('chatbot_knowledge').doc(req.params.id).delete();
     res.json({ success: true });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

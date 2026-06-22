@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { db } from '../config/firebase';
+import type { Query } from 'firebase-admin/firestore';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 
-const prisma = new PrismaClient();
 const router = Router();
 
 function generateCode(): string {
@@ -15,16 +15,19 @@ function generateCode(): string {
 // GET /api/reservations - protected
 router.get('/', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
-    const { status, page = '1', limit = '50' } = req.query;
-    const where: any = {};
-    if (status) where.status = String(status);
-    const skip = (Number(page) - 1) * Number(limit);
+    const { status } = req.query;
+    let query: Query = db.collection('reservations');
 
-    const [items, total] = await Promise.all([
-      prisma.reservation.findMany({ where, skip, take: Number(limit), orderBy: { createdAt: 'desc' } }),
-      prisma.reservation.count({ where }),
-    ]);
-    res.json({ data: items, total, page: Number(page), totalPages: Math.ceil(total / Number(limit)) });
+    if (status) {
+      query = query.where('status', '==', String(status));
+    }
+
+    const snap = await query.get();
+    const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    // Sort by createdAt desc (client-side since Firestore ordering on non-indexed fields)
+    items.sort((a: any, b: any) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+
+    res.json({ data: items, total: items.length, page: 1, totalPages: 1 });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -38,20 +41,22 @@ router.post('/', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'All required fields must be filled.' });
     }
 
-    const reservation = await prisma.reservation.create({
-      data: {
-        reservationCode: generateCode(),
-        userName,
-        email,
-        phone,
-        date,
-        time,
-        guestsCount: Number(guestsCount),
-        specialRequests: specialRequests || null,
-        status: 'Pending',
-      },
-    });
-    res.status(201).json(reservation);
+    const data = {
+      reservationCode: generateCode(),
+      userName,
+      email,
+      phone,
+      date,
+      time,
+      guestsCount: Number(guestsCount),
+      specialRequests: specialRequests || null,
+      status: 'Pending',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const ref = await db.collection('reservations').add(data);
+    res.status(201).json({ id: ref.id, ...data });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -65,8 +70,12 @@ router.put('/:id/status', authMiddleware, async (req: AuthRequest, res: Response
     if (!valid.includes(status)) {
       return res.status(400).json({ error: `Status must be one of: ${valid.join(', ')}` });
     }
-    const reservation = await prisma.reservation.update({ where: { id: req.params.id }, data: { status } });
-    res.json(reservation);
+    await db.collection('reservations').doc(req.params.id).update({
+      status,
+      updatedAt: new Date().toISOString(),
+    });
+    const updated = await db.collection('reservations').doc(req.params.id).get();
+    res.json({ id: updated.id, ...updated.data() });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -75,7 +84,7 @@ router.put('/:id/status', authMiddleware, async (req: AuthRequest, res: Response
 // DELETE /api/reservations/:id - protected
 router.delete('/:id', authMiddleware, async (req: AuthRequest, res: Response) => {
   try {
-    await prisma.reservation.delete({ where: { id: req.params.id } });
+    await db.collection('reservations').doc(req.params.id).delete();
     res.json({ success: true });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

@@ -78,7 +78,7 @@ export default function LoginPage() {
           </button>
 
           <p className="text-[10px] text-white/30 font-mono text-center">
-            Default: admin@gourmet.com / admin123
+            Use your Firebase Auth credentials
           </p>
         </form>
       </div>

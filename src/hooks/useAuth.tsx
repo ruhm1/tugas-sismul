@@ -1,4 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { firebaseAuth } from '../lib/firebase';
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  User as FirebaseUser,
+} from 'firebase/auth';
 import api from '../services/api';
 
 interface User {
@@ -14,6 +21,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -22,41 +30,70 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   logout: () => {},
   isAuthenticated: false,
+  loading: true,
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('gourmet_token');
-    const savedUser = localStorage.getItem('gourmet_user');
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch { /* ignore */ }
-    }
+    const unsubscribe = onAuthStateChanged(firebaseAuth, async (firebaseUser: FirebaseUser | null) => {
+      if (firebaseUser) {
+        const idToken = await firebaseUser.getIdToken();
+        setToken(idToken);
+
+        // Fetch user profile from our backend
+        try {
+          const res = await api.get('/auth/me');
+          setUser(res.data);
+        } catch {
+          // Fallback to Firebase user data
+          setUser({
+            id: firebaseUser.uid,
+            email: firebaseUser.email || '',
+            name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Admin',
+            role: 'admin',
+          });
+        }
+      } else {
+        setToken(null);
+        setUser(null);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
-    const res = await api.post('/auth/login', { email, password });
-    const { token: newToken, user: newUser } = res.data;
-    setToken(newToken);
-    setUser(newUser);
-    localStorage.setItem('gourmet_token', newToken);
-    localStorage.setItem('gourmet_user', JSON.stringify(newUser));
+    const credential = await signInWithEmailAndPassword(firebaseAuth, email, password);
+    const idToken = await credential.user.getIdToken();
+    setToken(idToken);
+
+    // Notify backend about the login to create/verify user doc
+    try {
+      const res = await api.post('/auth/login', { idToken });
+      setUser(res.data.user);
+    } catch {
+      setUser({
+        id: credential.user.uid,
+        email: credential.user.email || '',
+        name: credential.user.displayName || email.split('@')[0],
+        role: 'admin',
+      });
+    }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await signOut(firebaseAuth);
     setToken(null);
     setUser(null);
-    localStorage.removeItem('gourmet_token');
-    localStorage.removeItem('gourmet_user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token }}>
+    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,20 +1,25 @@
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { db } from '../config/firebase';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 
-const prisma = new PrismaClient();
 const router = Router();
 
 // GET /api/admin/stats - protected
 router.get('/stats', authMiddleware, async (req: AuthRequest, res) => {
   try {
-    const [totalMenu, totalReservations, totalPromos, totalContacts] = await Promise.all([
-      prisma.menu.count(),
-      prisma.reservation.count(),
-      prisma.promotion.count(),
-      prisma.contact.count(),
+    const [menuSnap, resSnap, promoSnap, contactSnap] = await Promise.all([
+      db.collection('menus').count().get(),
+      db.collection('reservations').count().get(),
+      db.collection('promotions').count().get(),
+      db.collection('contacts').count().get(),
     ]);
-    res.json({ totalMenu, totalReservations, totalPromos, totalContacts });
+
+    res.json({
+      totalMenu: menuSnap.data().count,
+      totalReservations: resSnap.data().count,
+      totalPromos: promoSnap.data().count,
+      totalContacts: contactSnap.data().count,
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

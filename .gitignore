@@ -6,6 +6,8 @@ coverage/
 *.log
 .env*
 !/.env.example
+.agents
+.firebase
 
 /uploads/
 /src/generated/prisma
