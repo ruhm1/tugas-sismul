@@ -60,6 +60,14 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
     return matchesSearch && matchesCategory;
   });
 
+  const categoryLabels: Record<string, string> = {
+    'All': 'Semua',
+    'Appetizers': 'Pembuka',
+    'Mains': 'Utama',
+    'Desserts': 'Penutup',
+    'Wines': 'Anggur',
+  };
+
   const categories: ('All' | 'Appetizers' | 'Mains' | 'Desserts' | 'Wines')[] = ['All', 'Appetizers', 'Mains', 'Desserts', 'Wines'];
 
   return (
@@ -68,10 +76,10 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/5 pb-8 mb-12">
           <div>
-            <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Our Culinary Art</span>
-            <h2 class="font-display font-light text-4xl text-white tracking-tight">The Seasonal Menu</h2>
+            <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Seni Kuliner Kami</span>
+            <h2 class="font-display font-light text-4xl text-white tracking-tight">Menu Musiman</h2>
             <p class="text-[#E5E5E5]/50 text-xs mt-1.5 max-w-lg font-light leading-relaxed">
-              Each selection represents a season of precision. Search or filter through appetizers, organic masterpieces, mains, and rare vintage cellar pairings.
+              Setiap pilihan merepresentasikan satu musim penuh presisi. Cari atau filter melalui hidangan pembuka, karya organik, hidangan utama, dan paduan anggur langka.
             </p>
           </div>
 
@@ -84,7 +92,7 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
               <input
                 id="menu-search-input"
                 type="text"
-                placeholder="Search dish, vintage, ingredients..."
+                placeholder="Cari hidangan, anggur, bahan..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 class="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs rounded-sm pl-9.5 pr-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all font-sans"
@@ -106,7 +114,7 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
                     : 'bg-white/5 text-[#E5E5E5]/60 hover:text-white border border-white/5 hover:bg-white/10'
                 }`}
               >
-                {cat}
+                {categoryLabels[cat] || cat}
               </button>
             ))}
           </div>
@@ -115,7 +123,7 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
             <div class="bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-sm px-4 py-2.5 flex items-center gap-2.5">
               <Heart class="w-3.5 h-3.5 text-[#C5A059] fill-[#C5A059] animate-pulse" />
               <span class="text-xs text-[#C5A059] font-mono">
-                My Tasting Menu: <strong class="text-zinc-100">{wishlist.length} Selection{wishlist.length === 1 ? '' : 's'}</strong>
+                Menu Pilihan Saya: <strong class="text-zinc-100">{wishlist.length} Pilihan</strong>
               </span>
             </div>
           )}
@@ -125,13 +133,13 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
         {loading ? (
           <div class="py-20 flex flex-col items-center justify-center gap-3">
             <div class="w-10 h-10 border-2 border-[#C5A059] border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-xs text-[#E5E5E5]/50 font-mono tracking-widest">PLACING DECORATIVE PLATTERS...</p>
+            <p class="text-xs text-[#E5E5E5]/50 font-mono tracking-widest">MENYIAPKAN HIDANGAN...</p>
           </div>
         ) : filteredItems.length === 0 ? (
           <div class="py-24 text-center border border-dashed border-white/10 rounded-sm bg-white/[0.01]">
             <Wine class="w-8 h-8 text-[#E5E5E5]/30 mx-auto mb-3" />
-            <h4 class="font-display text-[#E5E5E5]/80 font-medium">No Culinary Masterpieces Found</h4>
-            <p class="text-[#E5E5E5]/40 text-xs mt-1.5 font-sans font-light">Modify your filters or ask our AI Sommelier to suggest unique preparations.</p>
+            <h4 class="font-display text-[#E5E5E5]/80 font-medium">Tidak Ada Hidangan Ditemukan</h4>
+            <p class="text-[#E5E5E5]/40 text-xs mt-1.5 font-sans font-light">Ubah filter Anda atau tanyakan AI Sommelier kami untuk saran unik.</p>
           </div>
         ) : (
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -158,7 +166,7 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
                     <div class="absolute top-4 left-4 flex gap-1.5 flex-wrap">
                       {item.isSignature && (
                         <span class="bg-[#C5A059] text-black font-mono font-bold text-[8px] uppercase tracking-widest px-2.5 py-1 rounded-sm shadow-sm flex items-center gap-1">
-                          <Star class="w-2.5 h-2.5 fill-current" /> Signature
+                          <Star class="w-2.5 h-2.5 fill-current" /> Andalan
                         </span>
                       )}
                       {item.tags.map(tag => (
@@ -197,7 +205,7 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
                         class="text-[#C5A059] hover:text-white font-display tracking-widest uppercase text-[9px] font-medium flex items-center gap-1.5 transition-colors group cursor-pointer"
                       >
                         <Wine class="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" />
-                        <span>Pairing Guide</span>
+                        <span>Panduan Padanan</span>
                       </button>
                     </div>
                   </div>
@@ -212,20 +220,20 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
           <div class="mt-20 bg-white/[0.02] border border-white/5 rounded-sm p-6 md:p-8">
             <div class="flex flex-col md:flex-row items-start justify-between gap-6 border-b border-white/5 pb-6 mb-6">
               <div>
-                <span class="text-[9px] text-[#C5A059] tracking-[0.2em] font-mono font-semibold uppercase block mb-1">Interactive Tasting Lounge</span>
-                <h3 class="font-display text-2xl text-white font-light tracking-tight">Your Handcrafted Micro-Tasting Menu</h3>
+                <span class="text-[9px] text-[#C5A059] tracking-[0.2em] font-mono font-semibold uppercase block mb-1">Ruang Pencicipan Interaktif</span>
+                <h3 class="font-display text-2xl text-white font-light tracking-tight">Menu Pencicipan Pilihan Anda</h3>
                 <p class="text-zinc-500 text-xs mt-1.5 leading-relaxed font-light font-sans">
-                  Review your unique composition. Ask our AI sommelier to comment or print pairing notes for your session!
+                  Tinjau komposisi unik Anda. Minta AI sommelier kami untuk memberikan komentar atau cetak catatan padanan untuk sesi Anda!
                 </p>
               </div>
 
               <div class="flex items-center gap-3">
                 <button
-                  onClick={() => onSuggestWinePairing(`Pairing critique for my tasting list: ${wishlist.map(x=>x.name).join(', ')}`)}
+                  onClick={() => onSuggestWinePairing(`Kritik padanan untuk daftar pencicipan saya: ${wishlist.map(x=>x.name).join(', ')}`)}
                   class="bg-[#C5A059]/10 hover:bg-[#C5A059]/20 border border-[#C5A059]/30 text-[#C5A059] font-display uppercase tracking-widest py-2.5 px-5 rounded-sm text-[10px] flex items-center gap-2 transition-all cursor-pointer"
                 >
                   <Wine class="w-4 h-4 text-[#C5A059]" />
-                  Critique My Selections
+                  Kritik Pilihan Saya
                 </button>
                 <button
                   onClick={() => {
@@ -234,7 +242,7 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
                   }}
                   class="text-xs text-white/40 hover:text-rose-400 font-mono underline"
                 >
-                  Clear List
+                  Hapus Daftar
                 </button>
               </div>
             </div>

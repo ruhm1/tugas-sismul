@@ -27,16 +27,27 @@ router.post('/', async (req: Request, res: Response) => {
   const knowledgeSnap = await db.collection('chatbot_knowledge').where('isActive', '==', true).get();
   const knowledge = knowledgeSnap.docs.map(d => d.data());
 
-  if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
-    // Fallback responses from knowledge base
-    const match = knowledge.find((k: any) =>
-      message.toLowerCase().includes(k.question?.toLowerCase().slice(0, 30))
-    );
-    if (match) return res.json({ text: (match as any).answer });
+  const fallbackLogic = () => {
+    const match = knowledge.find((k: any) => {
+      const q = k.question?.toLowerCase();
+      // Lebih fleksibel dalam pencocokan
+      if (q && message.toLowerCase().includes(q)) return true;
+      // Coba mencocokkan kata kunci sederhana
+      const keywords = q?.split(' ').filter((w: string) => w.length > 3) || [];
+      return keywords.some((w: string) => message.toLowerCase().includes(w));
+    });
+    
+    if (match) {
+      return res.json({ text: (match as any).answer });
+    }
 
     return res.json({
-      text: 'Welcome to GOURMET. I am your AI Sommelier. Ask me about our menu, reservations, or wine pairings.',
+      text: 'Salam hangat dari GOURMET. Saya adalah AI Sommelier Anda. Saya dapat membantu dengan menu, reservasi, atau panduan alergi.',
     });
+  };
+
+  if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
+    return fallbackLogic();
   }
 
   try {
@@ -54,7 +65,8 @@ router.post('/', async (req: Request, res: Response) => {
     const response = await chat.sendMessage({ message });
     res.json({ text: response.text || 'I am at your service.' });
   } catch (err: any) {
-    res.status(500).json({ error: 'AI error: ' + err.message });
+    console.error('AI Error:', err.message, '- Falling back to knowledge base');
+    return fallbackLogic();
   }
 });
 

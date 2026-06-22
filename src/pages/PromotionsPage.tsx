@@ -30,8 +30,8 @@ export default function PromotionsPage() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Exclusive Offers</span>
-          <h1 className="font-display font-light text-4xl md:text-5xl text-white tracking-tight">Promotions</h1>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Penawaran Eksklusif</span>
+          <h1 className="font-display font-light text-4xl md:text-5xl text-white tracking-tight">Promosi</h1>
           <div className="h-px w-10 bg-[#C5A059]/40 mx-auto mt-4" />
         </div>
 
@@ -42,7 +42,7 @@ export default function PromotionsPage() {
         ) : promos.length === 0 ? (
           <div className="py-20 text-center border border-dashed border-white/10 rounded-sm">
             <Tag className="w-8 h-8 text-white/30 mx-auto mb-3" />
-            <p className="text-xs text-white/40">No promotions available at this time.</p>
+            <p className="text-xs text-white/40">Tidak ada promosi tersedia saat ini.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -63,7 +63,7 @@ export default function PromotionsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] to-transparent" />
                   {promo.isActive && (
                     <span className="absolute top-4 left-4 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-[8px] uppercase tracking-widest px-2.5 py-1 rounded-sm">
-                      Active
+                      Aktif
                     </span>
                   )}
                 </div>
@@ -73,7 +73,7 @@ export default function PromotionsPage() {
                   <div className="flex items-center gap-4 text-[10px] font-mono text-white/40">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
-                      {new Date(promo.startDate).toLocaleDateString()} - {new Date(promo.endDate).toLocaleDateString()}
+                      {new Date(promo.startDate).toLocaleDateString('id-ID')} - {new Date(promo.endDate).toLocaleDateString('id-ID')}
                     </span>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ export default function PromotionsPage() {
                 <p className="text-sm text-white/60 leading-relaxed">{selected.description}</p>
                 <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059]">
                   <Calendar className="w-4 h-4" />
-                  <span>{new Date(selected.startDate).toLocaleDateString()} - {new Date(selected.endDate).toLocaleDateString()}</span>
+                  <span>{new Date(selected.startDate).toLocaleDateString('id-ID')} - {new Date(selected.endDate).toLocaleDateString('id-ID')}</span>
                 </div>
               </div>
             </motion.div>

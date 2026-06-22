@@ -9,13 +9,13 @@ export default function AboutPage() {
       <div className="relative h-80 flex items-center justify-center overflow-hidden">
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjP-RHsBe75Y_K_Duh5yeOla5OrcAwPfbomxrJJpibOx8AS7UH31WD4RcdfwemXRvT9jWG8pCGn_e1uzHboYMIUXL13r_3sOztuDqGw556W4EdHr3hekIXsjNuAkeAXdaGi09IL74Jn0XXXmOYqrKqKEhSg5COcKNfgGrl00LafxLDF5gyWZsn5BGYTDmtjAhWXpwPOcq-sgam8GaBjLi765uQi9-lcI96FtprTIRsCoQBKo7AO4EkaeJFMhaOMquE7Gg1ZfxmNq1P"
-          alt="Restaurant Interior"
+          alt="Interior Restoran"
           className="absolute inset-0 w-full h-full object-cover brightness-[0.15]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] to-transparent" />
         <div className="relative z-10 text-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Our Story</span>
-          <h1 className="font-display font-light text-4xl md:text-6xl text-white tracking-tight">About GOURMET</h1>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Kisah Kami</span>
+          <h1 className="font-display font-light text-4xl md:text-6xl text-white tracking-tight">Tentang GOURMET</h1>
         </div>
       </div>
 
@@ -23,13 +23,13 @@ export default function AboutPage() {
         {/* History */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-4">
-            <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">Since 1998</span>
-            <h2 className="font-display font-light text-3xl text-white">Our History</h2>
+            <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">Sejak 1998</span>
+            <h2 className="font-display font-light text-3xl text-white">Sejarah Kami</h2>
             <p className="text-xs text-white/60 leading-relaxed">
-              Founded in the heart of Paris, GOURMET began as a small bistro with an audacious dream. Over two decades, Executive Chef Eleanor Vance transformed it into a three-Michelin-starred destination, blending classical French technique with Japanese minimalism.
+              Didirikan di jantung kota Paris, GOURMET bermula sebagai bistro kecil dengan impian yang berani. Selama lebih dari dua dekade, Kepala Chef Eleanor Vance mengubahnya menjadi destinasi tiga bintang Michelin, memadukan teknik klasik Prancis dengan minimalisme Jepang.
             </p>
             <p className="text-xs text-white/60 leading-relaxed">
-              Every chapter of our journey has been defined by an unwavering commitment to excellence, seasonal ingredients, and the belief that dining is an art form that engages all senses.
+              Setiap bab perjalanan kami didefinisikan oleh komitmen tak tergoyahkan terhadap keunggulan, bahan musiman, dan keyakinan bahwa bersantap adalah seni yang melibatkan semua indera.
             </p>
           </div>
           <div className="bg-white/5 p-2 rounded-sm border border-white/5">
@@ -44,9 +44,9 @@ export default function AboutPage() {
         {/* Vision, Mission, Values */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { icon: <Eye className="w-6 h-6" />, title: 'Our Vision', text: 'To be the world\'s most celebrated destination for transformative culinary artistry, where every plate tells a story and every visit creates a lasting memory.' },
-            { icon: <Target className="w-6 h-6" />, title: 'Our Mission', text: 'We craft unforgettable dining experiences through seasonal ingredients, artisanal precision, and atmospheric luxury. Every guest receives personalized service that transcends expectations.' },
-            { icon: <Heart className="w-6 h-6" />, title: 'Our Values', text: 'Passion for perfection, respect for ingredients, commitment to sustainability, and the belief that gastronomy is a universal language that connects people across cultures.' },
+            { icon: <Eye className="w-6 h-6" />, title: 'Visi Kami', text: 'Menjadi destinasi paling terkenal di dunia untuk seni kuliner transformatif, di mana setiap piring menceritakan kisah dan setiap kunjungan menciptakan kenangan abadi.' },
+            { icon: <Target className="w-6 h-6" />, title: 'Misi Kami', text: 'Kami menciptakan pengalaman bersantap tak terlupakan melalui bahan musiman, presisi artisanal, dan kemewahan atmosferik. Setiap tamu menerima layanan personal yang melampaui ekspektasi.' },
+            { icon: <Heart className="w-6 h-6" />, title: 'Nilai Kami', text: 'Hasrat untuk kesempurnaan, penghormatan terhadap bahan baku, komitmen terhadap keberlanjutan, dan keyakinan bahwa gastronomi adalah bahasa universal yang menghubungkan orang lintas budaya.' },
           ].map((item) => (
             <motion.div
               key={item.title}
@@ -64,10 +64,10 @@ export default function AboutPage() {
 
         {/* Awards */}
         <div className="text-center space-y-8 border-t border-white/5 pt-16">
-          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">Recognition</span>
-          <h2 className="font-display font-light text-3xl text-white">Awards & Accolades</h2>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">Pengakuan</span>
+          <h2 className="font-display font-light text-3xl text-white">Penghargaan & Prestasi</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {['3 Michelin Stars', 'World\'s 50 Best', 'Relais & Châteaux', 'James Beard Award'].map((award) => (
+            {['3 Bintang Michelin', '50 Terbaik Dunia', 'Relais & Châteaux', 'James Beard Award'].map((award) => (
               <div key={award} className="bg-white/[0.02] border border-white/5 rounded-sm p-6 flex flex-col items-center gap-2">
                 <Award className="w-8 h-8 text-[#C5A059]" />
                 <span className="font-display text-sm text-white font-medium">{award}</span>

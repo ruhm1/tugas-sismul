@@ -9,7 +9,7 @@ export default function AISommelierBot() {
     {
       id: 'welcome',
       sender: 'assistant',
-      text: "Salutations, distinguished guest. I am your GOURMET AI Sommelier and Maître d'. Allow me to assist you in designing a seamless experience tonight by recommending the absolute perfect vintage, explaining our seasonal tasting menu, or answering questions regarding allergy guidelines.",
+      text: "Salam, tamu terhormat. Saya adalah AI Sommelier dan Maître d' GOURMET. Izinkan saya membantu Anda merancang pengalaman sempurna malam ini dengan merekomendasikan anggur terbaik, menjelaskan menu pencicipan musiman kami, atau menjawab pertanyaan mengenai panduan alergi.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -48,11 +48,15 @@ export default function AISommelierBot() {
         body: JSON.stringify({ message: rawVal, history: messages })
       });
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Server returned an error');
+      }
       
       const assistantMsg: ChatMessage = {
         id: 'msg-' + (Date.now() + 1),
         sender: 'assistant',
-        text: data.text || "I am here at your absolute service to recommend custom pairings.",
+        text: data.text || "Saya siap melayani Anda sepenuhnya untuk merekomendasikan padanan anggur terbaik.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages(prev => [...prev, assistantMsg]);
@@ -61,7 +65,7 @@ export default function AISommelierBot() {
       const assistantMsg: ChatMessage = {
         id: 'msg-' + (Date.now() + 1),
         sender: 'assistant',
-        text: "My apologies. I encountered a brief cellular signal disconnect in our stone cellar vaults. Rest assured, our kitchen and sommelier squad are completely operational to pair your vintage.",
+        text: "Mohon maaf. Saya mengalami gangguan koneksi singkat di ruang bawah tanah batu kami. Yakinlah, tim dapur dan sommelier kami sepenuhnya siap untuk memadukan anggur Anda.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages(prev => [...prev, assistantMsg]);
@@ -70,9 +74,9 @@ export default function AISommelierBot() {
     }
   };
   const presetQuestions = [
-    { text: "Recommend a pairing for A5 Wagyu & Truffle", icon: <GlassWater class="w-3.5 h-3.5 text-[#C5A059]" /> },
-    { text: "Is the scallop crudo completely gluten-free?", icon: <ChefHat class="w-3.5 h-3.5 text-[#C5A059]" /> },
-    { text: "What is your philosophy on modern seasonal dining?", icon: <Compass class="w-3.5 h-3.5 text-[#C5A059]" /> }
+    { text: "Rekomendasikan padanan untuk A5 Wagyu & Truffle", icon: <GlassWater class="w-3.5 h-3.5 text-[#C5A059]" /> },
+    { text: "Apakah scallop crudo sepenuhnya bebas gluten?", icon: <ChefHat class="w-3.5 h-3.5 text-[#C5A059]" /> },
+    { text: "Apa filosofi Anda tentang santapan musiman modern?", icon: <Compass class="w-3.5 h-3.5 text-[#C5A059]" /> }
   ];
 
   return (
@@ -88,7 +92,7 @@ export default function AISommelierBot() {
             class="flex items-center gap-2.5 bg-[#C5A059] hover:bg-[#8E6E3A] text-black px-4.5 py-3.5 rounded-sm shadow-[0_8px_30px_rgba(197,160,89,0.25)] border border-[#C5A059]/20 transition-all font-display tracking-[0.1em] uppercase text-xs group cursor-pointer font-medium"
           >
             <Sparkles class="w-4 h-4 text-black animate-pulse" />
-            <span>Consult AI Sommelier</span>
+            <span>Konsultasi AI Sommelier</span>
             <span class="w-2 h-2 rounded-full bg-[#C5A059] animate-ping absolute -top-0.5 -right-0.5"></span>
           </motion.button>
         )}
@@ -113,7 +117,7 @@ export default function AISommelierBot() {
                   <h4 class="font-display font-medium text-sm text-white tracking-wide">AI Sommelier & Maître d'</h4>
                   <div class="flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse"></span>
-                    <span class="text-[10px] text-white/40 font-mono tracking-wider">CELLAR CONCIERGE</span>
+                    <span class="text-[10px] text-white/40 font-mono tracking-wider">KONSIERJ ANGGUR</span>
                   </div>
                 </div>
               </div>
@@ -155,7 +159,7 @@ export default function AISommelierBot() {
                       <div class="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-bounce" style={{ animationDelay: '150ms' }}></div>
                       <div class="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
-                    <span class="text-[10px] text-white/40 font-mono italic">Sommelier is selecting a vintage...</span>
+                    <span class="text-[10px] text-white/40 font-mono italic">Sommelier sedang memilih anggur...</span>
                   </div>
                 </div>
               )}
@@ -163,7 +167,7 @@ export default function AISommelierBot() {
 
             {/* Quick Prompts */}
             <div class="p-3 bg-black/60 border-t border-white/5 space-y-1.5">
-              <span class="text-[9px] text-white/40 font-mono block tracking-widest uppercase px-1">Quick Inquiries:</span>
+              <span class="text-[9px] text-white/40 font-mono block tracking-widest uppercase px-1">Pertanyaan Cepat:</span>
               <div class="flex flex-col gap-1.5">
                 {presetQuestions.map((q, i) => (
                   <button
@@ -188,7 +192,7 @@ export default function AISommelierBot() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') handleSendMessage();
                 }}
-                placeholder="Ask about wines, gluten-free, secret recipes..."
+                placeholder="Tanyakan tentang anggur, bebas gluten, resep rahasia..."
                 class="flex-grow bg-black border border-white/5 focus:border-[#C5A059]/40 outline-none text-xs rounded-sm px-3.5 py-2.5 text-zinc-100 placeholder:text-zinc-500 transition-all font-sans"
               />
               <button

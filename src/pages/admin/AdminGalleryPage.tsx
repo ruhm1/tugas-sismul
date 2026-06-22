@@ -22,15 +22,15 @@ export default function AdminGalleryPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      if (editItem) { await api.put(`/gallery/${editItem.id}`, form); showToast('Updated', 'success'); }
-      else { await api.post('/gallery', form); showToast('Created', 'success'); }
+      if (editItem) { await api.put(`/gallery/${editItem.id}`, form); showToast('Diperbarui', 'success'); }
+      else { await api.post('/gallery', form); showToast('Dibuat', 'success'); }
       setShowModal(false); fetchData();
-    } catch { showToast('Error', 'error'); }
+    } catch { showToast('Gagal', 'error'); }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete?')) return;
-    try { await api.delete(`/gallery/${id}`); showToast('Deleted', 'success'); fetchData(); } catch { showToast('Error', 'error'); }
+    if (!confirm('Hapus?')) return;
+    try { await api.delete(`/gallery/${id}`); showToast('Dihapus', 'success'); fetchData(); } catch { showToast('Gagal', 'error'); }
   };
 
   const cats = ['FOOD', 'INTERIOR', 'EVENTS', 'CHEF'];
@@ -38,8 +38,8 @@ export default function AdminGalleryPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div><span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Gallery</span><h1 className="font-display font-light text-3xl text-white">Manage Gallery</h1></div>
-        <button onClick={openAdd} className="bg-[#C5A059] hover:bg-[#8E6E3A] text-black font-display text-xs px-4 py-2.5 rounded-lg flex items-center gap-1.5 cursor-pointer"><Plus className="w-4 h-4" /> Add Photo</button>
+        <div><span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Galeri</span><h1 className="font-display font-light text-3xl text-white">Kelola Galeri</h1></div>
+        <button onClick={openAdd} className="bg-[#C5A059] hover:bg-[#8E6E3A] text-black font-display text-xs px-4 py-2.5 rounded-lg flex items-center gap-1.5 cursor-pointer"><Plus className="w-4 h-4" /> Tambah Foto</button>
       </div>
 
       {loading ? (
@@ -57,7 +57,7 @@ export default function AdminGalleryPage() {
                 <p className="text-[10px] text-white/40 line-clamp-2">{item.description}</p>
                 <div className="flex gap-2 pt-1">
                   <button onClick={() => openEdit(item)} className="text-[10px] text-[#C5A059] border border-[#C5A059]/20 px-3 py-1.5 rounded cursor-pointer hover:bg-[#C5A059]/10"><Edit className="w-3 h-3 inline mr-1" />Edit</button>
-                  <button onClick={() => handleDelete(item.id)} className="text-[10px] text-rose-400 border border-rose-500/20 px-3 py-1.5 rounded cursor-pointer hover:bg-rose-500/10"><Trash2 className="w-3 h-3 inline mr-1" />Delete</button>
+                  <button onClick={() => handleDelete(item.id)} className="text-[10px] text-rose-400 border border-rose-500/20 px-3 py-1.5 rounded cursor-pointer hover:bg-rose-500/10"><Trash2 className="w-3 h-3 inline mr-1" />Hapus</button>
                 </div>
               </div>
             </div>
@@ -68,15 +68,15 @@ export default function AdminGalleryPage() {
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-[#111113] border border-white/10 rounded-xl p-6 w-full max-w-lg space-y-5">
-            <div className="flex justify-between"><h3 className="font-display text-lg text-white">{editItem ? 'Edit' : 'Add'} Gallery</h3><button onClick={() => setShowModal(false)} className="text-white/40 hover:text-white cursor-pointer"><X className="w-5 h-5" /></button></div>
+            <div className="flex justify-between"><h3 className="font-display text-lg text-white">{editItem ? 'Edit' : 'Tambah'} Galeri</h3><button onClick={() => setShowModal(false)} className="text-white/40 hover:text-white cursor-pointer"><X className="w-5 h-5" /></button></div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} required placeholder="Title" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
-              <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} required placeholder="Description" rows={3} className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none resize-none" />
-              <input value={form.image} onChange={e => setForm({...form, image: e.target.value})} placeholder="Image URL" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
+              <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} required placeholder="Judul" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
+              <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} required placeholder="Deskripsi" rows={3} className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none resize-none" />
+              <input value={form.image} onChange={e => setForm({...form, image: e.target.value})} placeholder="URL Gambar" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
               <select value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none">
                 {cats.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
-              <button type="submit" className="w-full bg-[#C5A059] hover:bg-[#8E6E3A] text-black font-display text-xs py-3 rounded-lg cursor-pointer">{editItem ? 'Update' : 'Create'}</button>
+              <button type="submit" className="w-full bg-[#C5A059] hover:bg-[#8E6E3A] text-black font-display text-xs py-3 rounded-lg cursor-pointer">{editItem ? 'Perbarui' : 'Buat'}</button>
             </form>
           </div>
         </div>

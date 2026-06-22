@@ -4,13 +4,13 @@ import { Star, Compass, UtensilsCrossed, Calendar, Image, Phone, Tag, Info, Layo
 import AISommelierBot from '../components/AISommelierBot';
 
 const navLinks = [
-  { path: '/', label: 'Home', icon: <Compass className="w-4 h-4" /> },
-  { path: '/about', label: 'About', icon: <Info className="w-4 h-4" /> },
+  { path: '/', label: 'Beranda', icon: <Compass className="w-4 h-4" /> },
+  { path: '/about', label: 'Tentang', icon: <Info className="w-4 h-4" /> },
   { path: '/menu', label: 'Menu', icon: <UtensilsCrossed className="w-4 h-4" /> },
   { path: '/promotions', label: 'Promo', icon: <Tag className="w-4 h-4" /> },
-  { path: '/gallery', label: 'Gallery', icon: <Image className="w-4 h-4" /> },
-  { path: '/reservation', label: 'Reserve', icon: <Calendar className="w-4 h-4" /> },
-  { path: '/contact', label: 'Contact', icon: <Phone className="w-4 h-4" /> },
+  { path: '/gallery', label: 'Galeri', icon: <Image className="w-4 h-4" /> },
+  { path: '/reservation', label: 'Reservasi', icon: <Calendar className="w-4 h-4" /> },
+  { path: '/contact', label: 'Kontak', icon: <Phone className="w-4 h-4" /> },
 ];
 
 export default function MainLayout() {
@@ -27,7 +27,7 @@ export default function MainLayout() {
             </div>
             <div>
               <span className="font-display text-lg tracking-[0.25em] font-medium text-white uppercase block leading-none">GOURMET</span>
-              <span className="text-[8px] font-mono tracking-widest text-[#C5A059] uppercase block mt-1">MICHELIN THREE-STAR DINING</span>
+              <span className="text-[8px] font-mono tracking-widest text-[#C5A059] uppercase block mt-1">RESTORAN BINTANG TIGA MICHELIN</span>
             </div>
           </Link>
 
@@ -52,7 +52,7 @@ export default function MainLayout() {
             to="/reservation"
             className="hidden lg:flex items-center gap-2 border border-white/20 hover:border-[#C5A059]/50 bg-white/5 hover:bg-[#C5A059]/10 text-[#C5A059] font-display font-medium px-5 py-2.5 rounded-xl text-xs tracking-wider transition-all"
           >
-            Book Table
+            Pesan Meja
           </Link>
         </div>
       </header>
@@ -99,19 +99,19 @@ export default function MainLayout() {
           <div>
             <h4 className="font-display text-white tracking-widest uppercase mb-3">GOURMET</h4>
             <p className="leading-relaxed font-sans">
-              Three-starred culinary excellence matching classical fundamentals with futuristic sensory pairings.
+              Keunggulan kuliner bintang tiga yang memadukan fundamental klasik dengan paduan sensorik futuristik.
             </p>
           </div>
           <div className="space-y-1.5 font-mono">
-            <h4 className="font-display text-white tracking-widest uppercase mb-3 font-semibold">Tasting Hours</h4>
-            <p>Wednesday - Sunday: 5:00 PM - 11:30 PM</p>
-            <p>Executive Cellar bookings require 48h notice</p>
+            <h4 className="font-display text-white tracking-widest uppercase mb-3 font-semibold">Jam Operasional</h4>
+            <p>Rabu - Minggu: 17.00 - 23.30</p>
+            <p>Reservasi Ruang Eksekutif memerlukan pemberitahuan 48 jam</p>
           </div>
           <div>
-            <h4 className="font-display text-white tracking-widest uppercase mb-3 font-semibold">Contact</h4>
+            <h4 className="font-display text-white tracking-widest uppercase mb-3 font-semibold">Kontak</h4>
             <p className="leading-relaxed">12 Rue de la Gastronomie, Paris 75008</p>
             <p>+33 1 42 68 53 00 | reservations@gourmet.com</p>
-            <p className="mt-2">&copy; 2026 GOURMET. All rights reserved.</p>
+            <p className="mt-2">&copy; 2026 GOURMET. Hak cipta dilindungi.</p>
           </div>
         </div>
       </footer>

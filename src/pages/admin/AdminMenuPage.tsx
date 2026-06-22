@@ -45,19 +45,19 @@ export default function AdminMenuPage() {
     try {
       if (editItem) {
         await api.put(`/menu/${editItem.id}`, body);
-        showToast('Menu updated', 'success');
+        showToast('Menu diperbarui', 'success');
       } else {
         await api.post('/menu', body);
-        showToast('Menu added', 'success');
+        showToast('Menu ditambahkan', 'success');
       }
       setShowModal(false);
       fetchData();
-    } catch { showToast('Error saving menu item', 'error'); }
+    } catch { showToast('Gagal menyimpan item menu', 'error'); }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this item?')) return;
-    try { await api.delete(`/menu/${id}`); showToast('Deleted', 'success'); fetchData(); } catch { showToast('Error', 'error'); }
+    if (!confirm('Hapus item ini?')) return;
+    try { await api.delete(`/menu/${id}`); showToast('Dihapus', 'success'); fetchData(); } catch { showToast('Gagal', 'error'); }
   };
 
   const filtered = items.filter(i => i.name.toLowerCase().includes(search.toLowerCase()));
@@ -66,17 +66,17 @@ export default function AdminMenuPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Menu Management</span>
-          <h1 className="font-display font-light text-3xl text-white">Menu Items</h1>
+          <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Manajemen Menu</span>
+          <h1 className="font-display font-light text-3xl text-white">Daftar Menu</h1>
         </div>
         <button onClick={openAdd} className="bg-[#C5A059] hover:bg-[#8E6E3A] text-black font-display text-xs px-4 py-2.5 rounded-lg flex items-center gap-1.5 cursor-pointer">
-          <Plus className="w-4 h-4" /> Add Item
+          <Plus className="w-4 h-4" /> Tambah Item
         </button>
       </div>
 
       <div className="relative w-full max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search menu..." className="w-full bg-[#111113] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs rounded-lg pl-9 pr-4 py-2.5 text-white transition-all" />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cari menu..." className="w-full bg-[#111113] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs rounded-lg pl-9 pr-4 py-2.5 text-white transition-all" />
       </div>
 
       {loading ? (
@@ -86,7 +86,7 @@ export default function AdminMenuPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="border-b border-white/5 text-[10px] font-mono text-white/40 uppercase tracking-widest">
-                <tr><th className="p-4">Name</th><th className="p-4">Category</th><th className="p-4">Price</th><th className="p-4">Status</th><th className="p-4 text-right">Actions</th></tr>
+                <tr><th className="p-4">Nama</th><th className="p-4">Kategori</th><th className="p-4">Harga</th><th className="p-4">Status</th><th className="p-4 text-right">Aksi</th></tr>
               </thead>
               <tbody className="divide-y divide-white/5">
                 {filtered.map(item => (
@@ -97,7 +97,7 @@ export default function AdminMenuPage() {
                     </td>
                     <td className="p-4 font-mono text-white/50">{item.category}</td>
                     <td className="p-4 font-mono text-[#C5A059]">${item.price}</td>
-                    <td className="p-4"><span className={`px-2 py-1 rounded text-[9px] font-mono uppercase ${item.isAvailable !== false ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}`}>{item.isAvailable !== false ? 'Available' : 'Unavailable'}</span></td>
+                    <td className="p-4"><span className={`px-2 py-1 rounded text-[9px] font-mono uppercase ${item.isAvailable !== false ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}`}>{item.isAvailable !== false ? 'Tersedia' : 'Habis'}</span></td>
                     <td className="p-4 text-right">
                       <button onClick={() => openEdit(item)} className="p-1.5 rounded-lg border border-white/10 hover:border-[#C5A059]/30 text-white/50 hover:text-[#C5A059] cursor-pointer mr-1"><Edit className="w-3.5 h-3.5" /></button>
                       <button onClick={() => handleDelete(item.id)} className="p-1.5 rounded-lg border border-white/10 hover:border-rose-500/30 text-white/50 hover:text-rose-400 cursor-pointer"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -115,28 +115,28 @@ export default function AdminMenuPage() {
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-[#111113] border border-white/10 rounded-xl p-6 w-full max-w-lg space-y-5 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center">
-              <h3 className="font-display text-lg text-white">{editItem ? 'Edit' : 'Add'} Menu Item</h3>
+              <h3 className="font-display text-lg text-white">{editItem ? 'Edit' : 'Tambah'} Item Menu</h3>
               <button onClick={() => setShowModal(false)} className="text-white/40 hover:text-white p-1 cursor-pointer"><X className="w-5 h-5" /></button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} required placeholder="Item name" className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs rounded-lg p-3 text-white" />
+              <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} required placeholder="Nama item" className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs rounded-lg p-3 text-white" />
               <div className="grid grid-cols-2 gap-4">
                 <select value={form.categoryId} onChange={e => setForm({...form, categoryId: e.target.value})} className="bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none">
                   {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
-                <input type="number" value={form.price} onChange={e => setForm({...form, price: e.target.value})} required placeholder="Price" className="bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
+                <input type="number" value={form.price} onChange={e => setForm({...form, price: e.target.value})} required placeholder="Harga" className="bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
               </div>
-              <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} required placeholder="Description" rows={3} className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none resize-none" />
-              <input value={form.image} onChange={e => setForm({...form, image: e.target.value})} placeholder="Image URL" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
-              <input value={form.tags} onChange={e => setForm({...form, tags: e.target.value})} placeholder="Tags (comma separated)" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
+              <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} required placeholder="Deskripsi" rows={3} className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none resize-none" />
+              <input value={form.image} onChange={e => setForm({...form, image: e.target.value})} placeholder="URL Gambar" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
+              <input value={form.tags} onChange={e => setForm({...form, tags: e.target.value})} placeholder="Tag (pisahkan dengan koma)" className="w-full bg-[#0A0A0B] border border-white/10 text-xs rounded-lg p-3 text-white outline-none" />
               <label className="flex items-center gap-2 text-xs text-white/60 cursor-pointer">
-                <input type="checkbox" checked={form.isSignature} onChange={e => setForm({...form, isSignature: e.target.checked})} className="accent-[#C5A059]" /> Signature Item
+                <input type="checkbox" checked={form.isSignature} onChange={e => setForm({...form, isSignature: e.target.checked})} className="accent-[#C5A059]" /> Item Andalan
               </label>
               <label className="flex items-center gap-2 text-xs text-white/60 cursor-pointer">
-                <input type="checkbox" checked={form.isAvailable} onChange={e => setForm({...form, isAvailable: e.target.checked})} className="accent-[#C5A059]" /> Available
+                <input type="checkbox" checked={form.isAvailable} onChange={e => setForm({...form, isAvailable: e.target.checked})} className="accent-[#C5A059]" /> Tersedia
               </label>
               <button type="submit" className="w-full bg-[#C5A059] hover:bg-[#8E6E3A] text-black font-display text-xs py-3 rounded-lg cursor-pointer">
-                {editItem ? 'Update' : 'Create'} Item
+                {editItem ? 'Perbarui' : 'Buat'} Item
               </button>
             </form>
           </div>

@@ -19,14 +19,14 @@ export default function AdminReservationPage() {
   const changeStatus = async (id: string, status: string) => {
     try {
       await api.put(`/reservations/${id}/status`, { status });
-      showToast(`Status updated to ${status}`, 'success');
+      showToast(`Status diperbarui menjadi ${status}`, 'success');
       fetchData();
-    } catch { showToast('Error updating status', 'error'); }
+    } catch { showToast('Gagal memperbarui status', 'error'); }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this reservation?')) return;
-    try { await api.delete(`/reservations/${id}`); showToast('Deleted', 'success'); fetchData(); } catch { showToast('Error', 'error'); }
+    if (!confirm('Hapus reservasi ini?')) return;
+    try { await api.delete(`/reservations/${id}`); showToast('Dihapus', 'success'); fetchData(); } catch { showToast('Gagal', 'error'); }
   };
 
   const statusColor: Record<string, string> = {
@@ -39,8 +39,8 @@ export default function AdminReservationPage() {
   return (
     <div className="space-y-6">
       <div>
-        <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Reservations</span>
-        <h1 className="font-display font-light text-3xl text-white">Manage Reservations</h1>
+        <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Reservasi</span>
+        <h1 className="font-display font-light text-3xl text-white">Kelola Reservasi</h1>
       </div>
 
       {loading ? (
@@ -50,7 +50,7 @@ export default function AdminReservationPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="border-b border-white/5 text-[10px] font-mono text-white/40 uppercase tracking-widest">
-                <tr><th className="p-4">Guest</th><th className="p-4">Date/Time</th><th className="p-4">Guests</th><th className="p-4">Code</th><th className="p-4">Status</th><th className="p-4 text-right">Actions</th></tr>
+                <tr><th className="p-4">Tamu</th><th className="p-4">Tanggal/Waktu</th><th className="p-4">Jumlah</th><th className="p-4">Kode</th><th className="p-4">Status</th><th className="p-4 text-right">Aksi</th></tr>
               </thead>
               <tbody className="divide-y divide-white/5">
                 {reservations.map(r => (
@@ -62,10 +62,10 @@ export default function AdminReservationPage() {
                     <td className="p-4"><span className={`px-2 py-1 rounded text-[9px] font-mono uppercase border ${statusColor[r.status] || ''}`}>{r.status}</span></td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-1">
-                        <button onClick={() => changeStatus(r.id, 'Confirmed')} title="Confirm" className="p-1.5 rounded border border-white/10 hover:border-emerald-500/30 text-white/50 hover:text-emerald-400 cursor-pointer"><Check className="w-3 h-3" /></button>
-                        <button onClick={() => changeStatus(r.id, 'Pending')} title="Pending" className="p-1.5 rounded border border-white/10 hover:border-amber-500/30 text-white/50 hover:text-amber-400 cursor-pointer"><RefreshCw className="w-3 h-3" /></button>
-                        <button onClick={() => changeStatus(r.id, 'Cancelled')} title="Cancel" className="p-1.5 rounded border border-white/10 hover:border-rose-500/30 text-white/50 hover:text-rose-400 cursor-pointer"><X className="w-3 h-3" /></button>
-                        <button onClick={() => handleDelete(r.id)} title="Delete" className="p-1.5 rounded border border-white/10 hover:border-rose-500/30 text-white/50 hover:text-rose-400 cursor-pointer"><Trash2 className="w-3 h-3" /></button>
+                        <button onClick={() => changeStatus(r.id, 'Confirmed')} title="Konfirmasi" className="p-1.5 rounded border border-white/10 hover:border-emerald-500/30 text-white/50 hover:text-emerald-400 cursor-pointer"><Check className="w-3 h-3" /></button>
+                        <button onClick={() => changeStatus(r.id, 'Pending')} title="Tertunda" className="p-1.5 rounded border border-white/10 hover:border-amber-500/30 text-white/50 hover:text-amber-400 cursor-pointer"><RefreshCw className="w-3 h-3" /></button>
+                        <button onClick={() => changeStatus(r.id, 'Cancelled')} title="Batal" className="p-1.5 rounded border border-white/10 hover:border-rose-500/30 text-white/50 hover:text-rose-400 cursor-pointer"><X className="w-3 h-3" /></button>
+                        <button onClick={() => handleDelete(r.id)} title="Hapus" className="p-1.5 rounded border border-white/10 hover:border-rose-500/30 text-white/50 hover:text-rose-400 cursor-pointer"><Trash2 className="w-3 h-3" /></button>
                       </div>
                     </td>
                   </tr>

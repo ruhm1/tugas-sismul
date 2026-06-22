@@ -7,10 +7,10 @@ import api from '../services/api';
 import { showToast } from '../components/Toast';
 
 const schema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  subject: z.string().min(3, 'Subject must be at least 3 characters'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  name: z.string().min(2, 'Nama minimal 2 karakter'),
+  email: z.string().email('Alamat email tidak valid'),
+  subject: z.string().min(3, 'Subjek minimal 3 karakter'),
+  message: z.string().min(10, 'Pesan minimal 10 karakter'),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -23,10 +23,10 @@ export default function ContactPage() {
   const onSubmit = async (data: FormData) => {
     try {
       await api.post('/contacts', data);
-      showToast('Message sent successfully!', 'success');
+      showToast('Pesan berhasil dikirim!', 'success');
       reset();
     } catch {
-      showToast('Failed to send message. Please try again.', 'error');
+      showToast('Gagal mengirim pesan. Silakan coba lagi.', 'error');
     }
   };
 
@@ -35,8 +35,8 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Get In Touch</span>
-          <h1 className="font-display font-light text-4xl md:text-5xl text-white tracking-tight">Contact Us</h1>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Hubungi Kami</span>
+          <h1 className="font-display font-light text-4xl md:text-5xl text-white tracking-tight">Kontak Kami</h1>
           <div className="h-px w-10 bg-[#C5A059]/40 mx-auto mt-4" />
         </div>
 
@@ -45,10 +45,10 @@ export default function ContactPage() {
           <div className="space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                { icon: <MapPin className="w-5 h-5" />, label: 'Address', value: '12 Rue de la Gastronomie\nParis 75008, France' },
-                { icon: <Phone className="w-5 h-5" />, label: 'Phone', value: '+33 1 42 68 53 00' },
+                { icon: <MapPin className="w-5 h-5" />, label: 'Alamat', value: '12 Rue de la Gastronomie\nParis 75008, Prancis' },
+                { icon: <Phone className="w-5 h-5" />, label: 'Telepon', value: '+33 1 42 68 53 00' },
                 { icon: <Mail className="w-5 h-5" />, label: 'Email', value: 'reservations@gourmet.com' },
-                { icon: <Clock className="w-5 h-5" />, label: 'Hours', value: 'Wed-Sun: 5:00 PM - 11:30 PM\nMon-Tue: Closed' },
+                { icon: <Clock className="w-5 h-5" />, label: 'Jam Buka', value: 'Rabu-Minggu: 17.00 - 23.30\nSenin-Selasa: Tutup' },
               ].map((item) => (
                 <div key={item.label} className="bg-white/[0.03] border border-white/5 rounded-sm p-5 space-y-2">
                   <div className="flex items-center gap-2 text-[#C5A059]">
@@ -70,21 +70,21 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="GOURMET Location"
+                title="Lokasi GOURMET"
               />
             </div>
           </div>
 
           {/* Contact Form */}
           <div className="bg-white/[0.02] border border-white/5 rounded-sm p-6 md:p-8">
-            <h3 className="font-display text-xl text-white font-medium mb-6">Send us a message</h3>
+            <h3 className="font-display text-xl text-white font-medium mb-6">Kirim pesan kepada kami</h3>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div className="space-y-1">
-                <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Name *</label>
+                <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Nama *</label>
                 <input
                   {...register('name')}
                   className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs text-zinc-100 rounded-sm p-3.5 transition-all"
-                  placeholder="Your name"
+                  placeholder="Nama Anda"
                 />
                 {errors.name && <p className="text-rose-400 text-[10px]">{errors.name.message}</p>}
               </div>
@@ -95,28 +95,28 @@ export default function ContactPage() {
                   {...register('email')}
                   type="email"
                   className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs text-zinc-100 rounded-sm p-3.5 transition-all"
-                  placeholder="your@email.com"
+                  placeholder="email@anda.com"
                 />
                 {errors.email && <p className="text-rose-400 text-[10px]">{errors.email.message}</p>}
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Subject *</label>
+                <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Subjek *</label>
                 <input
                   {...register('subject')}
                   className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs text-zinc-100 rounded-sm p-3.5 transition-all"
-                  placeholder="Subject"
+                  placeholder="Subjek"
                 />
                 {errors.subject && <p className="text-rose-400 text-[10px]">{errors.subject.message}</p>}
               </div>
 
               <div className="space-y-1">
-                <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Message *</label>
+                <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Pesan *</label>
                 <textarea
                   {...register('message')}
                   rows={5}
                   className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs text-zinc-100 rounded-sm p-3.5 transition-all resize-none"
-                  placeholder="Your message..."
+                  placeholder="Pesan Anda..."
                 />
                 {errors.message && <p className="text-rose-400 text-[10px]">{errors.message.message}</p>}
               </div>
@@ -127,7 +127,7 @@ export default function ContactPage() {
                 className="w-full bg-[#C5A059] hover:bg-[#8E6E3A] disabled:opacity-50 text-black font-display font-medium tracking-[0.2em] uppercase text-[10px] py-4 rounded-sm transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
               </button>
             </form>
           </div>

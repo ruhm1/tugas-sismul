@@ -6,13 +6,13 @@ import {
 } from 'lucide-react';
 
 const adminLinks = [
-  { path: '/admin', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+  { path: '/admin', label: 'Dasbor', icon: <LayoutDashboard className="w-4 h-4" /> },
   { path: '/admin/menu', label: 'Menu', icon: <UtensilsCrossed className="w-4 h-4" /> },
-  { path: '/admin/reservations', label: 'Reservations', icon: <Calendar className="w-4 h-4" /> },
-  { path: '/admin/promotions', label: 'Promotions', icon: <Tag className="w-4 h-4" /> },
-  { path: '/admin/gallery', label: 'Gallery', icon: <Image className="w-4 h-4" /> },
-  { path: '/admin/contacts', label: 'Messages', icon: <Mail className="w-4 h-4" /> },
-  { path: '/admin/profile', label: 'Profile', icon: <Settings className="w-4 h-4" /> },
+  { path: '/admin/reservations', label: 'Reservasi', icon: <Calendar className="w-4 h-4" /> },
+  { path: '/admin/promotions', label: 'Promosi', icon: <Tag className="w-4 h-4" /> },
+  { path: '/admin/gallery', label: 'Galeri', icon: <Image className="w-4 h-4" /> },
+  { path: '/admin/contacts', label: 'Pesan', icon: <Mail className="w-4 h-4" /> },
+  { path: '/admin/profile', label: 'Profil', icon: <Settings className="w-4 h-4" /> },
 ];
 
 export default function AdminLayout() {
@@ -35,7 +35,7 @@ export default function AdminLayout() {
           </div>
           <div>
             <span className="font-display text-sm tracking-[0.2em] font-medium text-white uppercase block">GOURMET</span>
-            <span className="text-[7px] font-mono tracking-widest text-[#C5A059] uppercase block">ADMIN PANEL</span>
+            <span className="text-[7px] font-mono tracking-widest text-[#C5A059] uppercase block">PANEL ADMIN</span>
           </div>
         </Link>
 
@@ -65,10 +65,10 @@ export default function AdminLayout() {
             className="flex items-center gap-2 text-xs text-white/40 hover:text-rose-400 transition-colors w-full px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
-            <span>Logout</span>
+            <span>Keluar</span>
           </button>
           <Link to="/" className="block text-[10px] text-white/30 hover:text-[#C5A059] font-mono">
-            Back to site
+            Kembali ke situs
           </Link>
         </div>
       </aside>

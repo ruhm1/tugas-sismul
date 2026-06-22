@@ -26,21 +26,21 @@ export default function DashboardPage() {
 
   const cards = [
     { label: 'Total Menu', value: stats.totalMenu, icon: <UtensilsCrossed className="w-5 h-5" />, color: 'text-[#C5A059]' },
-    { label: 'Reservations', value: stats.totalReservations, icon: <Calendar className="w-5 h-5" />, color: 'text-emerald-400' },
-    { label: 'Promotions', value: stats.totalPromos, icon: <Tag className="w-5 h-5" />, color: 'text-amber-400' },
-    { label: 'Messages', value: stats.totalContacts, icon: <Mail className="w-5 h-5" />, color: 'text-blue-400' },
+    { label: 'Reservasi', value: stats.totalReservations, icon: <Calendar className="w-5 h-5" />, color: 'text-emerald-400' },
+    { label: 'Promosi', value: stats.totalPromos, icon: <Tag className="w-5 h-5" />, color: 'text-amber-400' },
+    { label: 'Pesan', value: stats.totalContacts, icon: <Mail className="w-5 h-5" />, color: 'text-blue-400' },
   ];
 
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] font-semibold block mb-1">Dashboard</span>
-          <h1 className="font-display font-light text-3xl text-white">Command Center</h1>
+          <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] font-semibold block mb-1">Dasbor</span>
+          <h1 className="font-display font-light text-3xl text-white">Pusat Kontrol</h1>
         </div>
         <button onClick={fetchStats} className="flex items-center gap-1.5 text-xs text-[#C5A059] border border-[#C5A059]/20 bg-[#C5A059]/5 hover:bg-[#C5A059]/10 px-4 py-2.5 rounded-lg transition-all cursor-pointer">
           <RefreshCw className="w-3.5 h-3.5" />
-          <span>Refresh</span>
+          <span>Perbarui</span>
         </button>
       </div>
 
@@ -69,7 +69,7 @@ export default function DashboardPage() {
           <div className="bg-[#111113] border border-white/5 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-6">
               <BarChart2 className="w-4 h-4 text-[#C5A059]" />
-              <h3 className="font-display text-lg text-white font-medium">Statistics Overview</h3>
+              <h3 className="font-display text-lg text-white font-medium">Ikhtisar Statistik</h3>
             </div>
             <div className="space-y-4">
               {cards.map((card) => {

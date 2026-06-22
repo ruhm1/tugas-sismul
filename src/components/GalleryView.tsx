@@ -17,6 +17,14 @@ export default function GalleryView() {
     }).catch(() => setLoading(false));
   }, []);
 
+  const filterLabels: Record<string, string> = {
+    'ALL': 'SEMUA ARSIP',
+    'FOOD': 'MAKANAN',
+    'INTERIOR': 'INTERIOR',
+    'EVENTS': 'ACARA',
+    'CHEF': 'CHEF',
+  };
+
   const filterChips: ('ALL' | 'FOOD' | 'INTERIOR' | 'EVENTS' | 'CHEF')[] = ['ALL', 'FOOD', 'INTERIOR', 'EVENTS', 'CHEF'];
 
   const filteredItems = galleryItems.filter(item => {
@@ -29,11 +37,11 @@ export default function GalleryView() {
         
         {/* Gallery title header block */}
         <div class="max-w-2xl text-center mx-auto mb-16">
-          <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2 font-display">Atmospheric Narrative</span>
-          <h2 class="font-display font-light text-4xl text-white tracking-tight">The Visual Odyssey</h2>
+          <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2 font-display">Narasi Atmosferik</span>
+          <h2 class="font-display font-light text-4xl text-white tracking-tight">Perjalanan Visual</h2>
           <div class="h-px w-10 bg-[#C5A059]/40 mx-auto mt-4 mb-4"></div>
           <p class="text-[#E5E5E5]/50 text-xs leading-relaxed max-w-lg mx-auto mt-2 font-light">
-            Step behind the scenes of three-star Michelin magic. Filter through precision-plated culinary works, luxurious seating layouts, secret private vaults, and our chefs in preparation.
+            Intip di balik layar keajaiban tiga bintang Michelin. Filter melalui karya kuliner presisi, tata letak tempat duduk mewah, ruang privat rahasia, dan chef kami dalam persiapan.
           </p>
         </div>
 
@@ -49,7 +57,7 @@ export default function GalleryView() {
                   : 'bg-white/5 text-[#E5E5E5]/50 hover:text-white border border-white/5'
               }`}
             >
-              {chip === 'ALL' ? 'ALL ARCHIVES' : chip}
+              {filterLabels[chip] || chip}
             </button>
           ))}
         </div>
@@ -118,7 +126,7 @@ export default function GalleryView() {
             <div class="w-full max-w-5xl flex justify-between items-center mb-4">
               <div class="flex items-center gap-2.5">
                 <span class="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse"></span>
-                <span class="text-[10px] font-mono text-[#E5E5E5]/50 uppercase tracking-widest leading-none">CELLAR GALLERY PILL &bull; ZOOM MODE</span>
+                <span class="text-[10px] font-mono text-[#E5E5E5]/50 uppercase tracking-widest leading-none">GALERI &bull; MODE PERBESAR</span>
               </div>
               <button
                 onClick={() => setSelectedPhoto(null)}
@@ -159,7 +167,7 @@ export default function GalleryView() {
                   <div class="space-y-3">
                     <p class="text-xs text-[#E5E5E5]/60 leading-relaxed font-sans font-light">{selectedPhoto.description}</p>
                     <p class="text-[11px] text-white/45 leading-relaxed font-sans font-light">
-                      Our spaces are configured with noise-absorbing stone walls, ambient dimmer setups, and hand-woven details to prioritize complete, undisturbed conversations.
+                      Ruang kami dikonfigurasi dengan dinding batu peredam suara, pengaturan pencahayaan ambient, dan detail tenun tangan untuk memprioritaskan percakapan yang nyaman dan tak terganggu.
                     </p>
                   </div>
                 </div>
@@ -168,10 +176,10 @@ export default function GalleryView() {
                 <div class="bg-[#0A0A0B] p-4 border border-white/5 rounded-sm space-y-2 mt-6">
                   <div class="flex items-center gap-2 text-[9px] uppercase font-mono tracking-widest text-[#C5A059]">
                     <Info class="w-3.5 h-3.5" />
-                    <span>Plating Artifact Guidelines</span>
+                    <span>Panduan Penyajian</span>
                   </div>
                   <p class="text-[10px] text-white/40 font-sans leading-relaxed font-light">
-                    Designed for aesthetic pairing logs. Replaced and refreshed daily in alignment with solar seasons.
+                    Dirancang untuk catatan padanan estetis. Diganti dan disegarkan setiap hari sesuai dengan musim.
                   </p>
                 </div>
               </div>

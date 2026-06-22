@@ -26,7 +26,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
           <img
             id="hero-bg-img"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp9FIZCeC2CBRjG9-kdApBFpUD_W9Qr56iYZfyzIb2hsJ3I85egopDzqfsMap0qav-LQ08qBFxXa6Asoh0cKgoEaIUnm8mxx_VRGCyGq1dYI68ulm_Vd2RYRwhUkhokdMcWuyOImaEwxnIY_ueBb5T5PqYf4nH4gC9vFkng-SkqcreuMYKhbi--Xq0fdO0APQxNLeNtpavzLY8a9Ods7iFZnspDUMLMkUBX36kfqhI8Dd-rNi7qVIuEeXvN3sWpyxbiU6brMTywDie"
-            alt="GOURMET Fine Dining Room"
+            alt="Ruang Makan GOURMET"
             class="w-full h-full object-cover filter brightness-[0.2] scale-105 transform transition duration-[15s]"
           />
           {/* Subtle Golden Vignette Overlay */}
@@ -44,7 +44,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
             class="flex items-center gap-1.5 border border-[#C5A059]/30 bg-[#C5A059]/[0.05] px-4 py-2 rounded-full mb-6"
           >
             <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">
-              Three Michelin Stars &bull; Private Dining Concierge
+              Tiga Bintang Michelin &bull; Layanan Makan Privat
             </span>
           </motion.div>
  
@@ -54,7 +54,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
             transition={{ duration: 1, delay: 0.2 }}
             class="font-display font-light text-5xl md:text-7xl lg:text-8xl tracking-tight text-white mb-6 leading-none"
           >
-            Elegance in <span class="text-[#C5A059] font-serif italic font-light">Every Sensation</span>
+            Keanggunan dalam <span class="text-[#C5A059] font-serif italic font-light">Setiap Sensasi</span>
           </motion.h1>
  
           <motion.p
@@ -63,7 +63,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
             transition={{ duration: 1, delay: 0.4 }}
             class="text-[#E5E5E5]/70 text-sm md:text-base max-w-2xl mb-12 font-sans font-light leading-relaxed tracking-wider"
           >
-            A contemporary culinary odyssey curated by Executive Chef Eleanor Vance. Experience artisanal precision, legendary cellar vintages, and atmospheric luxury.
+            Petualangan kuliner kontemporer yang dikurasi oleh Kepala Chef Eleanor Vance. Nikmati presisi artisanal, koleksi anggur legendaris, dan kemewahan atmosferik.
           </motion.p>
  
           <motion.div
@@ -76,14 +76,14 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               onClick={onNavigateToMenu}
               class="group font-display tracking-[0.2em] font-medium text-[10px] uppercase bg-[#C5A059] hover:bg-[#8E6E3A] text-black px-8 py-4 rounded-sm border border-[#C5A059]/10 shadow-lg shadow-[#C5A059]/10 flex items-center justify-center gap-2 transition-all transition-colors duration-300"
             >
-              Explore Seasonal Menu
+              Jelajahi Menu Musiman
               <ArrowRight class="w-4 h-4 transition-transform group-hover:translate-x-1 duration-300" />
             </button>
             <a
               href="#the-experience"
               class="font-display tracking-[0.2em] font-medium text-[10px] uppercase bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-sm border border-white/10 shadow-md transition-all flex items-center justify-center transition-colors duration-300"
             >
-              The Experience
+              Pengalaman Kami
             </a>
           </motion.div>
  
@@ -98,7 +98,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               {/* Date selection */}
               <div class="text-left space-y-1.5">
                 <label class="text-[10px] text-white/40 uppercase tracking-[0.25em] font-mono flex items-center gap-1.5">
-                  <Calendar class="w-3 h-3 text-[#C5A059]" /> Date
+                  <Calendar class="w-3 h-3 text-[#C5A059]" /> Tanggal
                 </label>
                 <input
                   type="date"
@@ -111,7 +111,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               {/* Guests Selector */}
               <div class="text-left space-y-1.5">
                 <label class="text-[10px] text-white/40 uppercase tracking-[0.25em] font-mono flex items-center gap-1.5">
-                  <Users class="w-3 h-3 text-[#C5A059]" /> Party Size
+                  <Users class="w-3 h-3 text-[#C5A059]" /> Jumlah Tamu
                 </label>
                 <select
                   value={guestsCount}
@@ -120,7 +120,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
                 >
                   {[1, 2, 3, 4, 5, 6, 8, 10, 12].map((num) => (
                     <option key={num} value={num} class="bg-[#0A0A0B]">
-                      {num} {num === 1 ? 'Guest' : 'Guests'}
+                      {num} Tamu
                     </option>
                   ))}
                 </select>
@@ -129,7 +129,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               {/* Preferred Hour */}
               <div class="text-left space-y-1.5">
                 <label class="text-[10px] text-white/40 uppercase tracking-[0.25em] font-mono flex items-center gap-1.5">
-                  <Clock class="w-3 h-3 text-[#C5A059]" /> Seating Time
+                  <Clock class="w-3 h-3 text-[#C5A059]" /> Waktu Makan
                 </label>
                 <select
                   value={timeVal}
@@ -138,7 +138,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
                 >
                   {['17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00'].map((time) => (
                     <option key={time} value={time} class="bg-[#0A0A0B]">
-                      {time} PM
+                      {time}
                     </option>
                   ))}
                 </select>
@@ -149,7 +149,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
                 type="submit"
                 class="w-full bg-transparent hover:bg-white border border-[#C5A059] hover:border-white text-[#C5A059] hover:text-black font-display tracking-[0.25em] uppercase text-[10px] p-3.5 transition-all rounded-sm duration-300 cursor-pointer"
               >
-                Secure Reservation
+                Reservasi Sekarang
               </button>
             </form>
           </motion.div>
@@ -159,8 +159,8 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
       {/* Culinary Pillars Section */}
       <div id="the-experience" class="py-24 max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-          <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">The Culinary Collection</span>
-          <h2 class="font-display font-light text-3xl md:text-5xl text-white tracking-tight">Our Signature Icons</h2>
+          <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium block mb-2">Koleksi Kuliner</span>
+          <h2 class="font-display font-light text-3xl md:text-5xl text-white tracking-tight">Ikon Andalan Kami</h2>
           <div class="h-px w-10 bg-[#C5A059]/40 mx-auto mt-4"></div>
         </div>
 
@@ -178,13 +178,13 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 to-transparent"></div>
               <span class="absolute top-4 left-4 border border-[#C5A059]/30 text-[#C5A059] text-[9px] uppercase tracking-widest font-mono font-medium px-2.5 py-1 bg-zinc-950/80 backend-blur">
-                Appetizer
+                Hidangan Pembuka
               </span>
             </div>
             <div class="p-6">
               <h3 class="font-display font-medium text-lg text-[#C5A059] mb-2">Hokkaido Scallop Crudo</h3>
               <p class="text-xs text-white/60 font-sans leading-relaxed">
-                Hand-dived, finger lime caviar, white soy emulsion, and chilled dashi broth. Dust of premium sea kelp.
+                Kerang segar pilihan, kaviar jeruk nipis, emulsi kecap putih, dan kaldu dashi dingin. Ditaburi bubuk rumput laut premium.
               </p>
             </div>
           </motion.div>
@@ -202,13 +202,13 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 to-transparent"></div>
               <span class="absolute top-4 left-4 border border-[#C5A059]/30 text-[#C5A059] text-[9px] uppercase tracking-widest font-mono font-medium px-2.5 py-1 bg-zinc-950/80 backend-blur">
-                Entrée / Main
+                Hidangan Utama
               </span>
             </div>
             <div class="p-6">
               <h3 class="font-display font-medium text-lg text-[#C5A059] mb-2">A5 Wagyu &amp; Truffle</h3>
               <p class="text-xs text-white/60 font-sans leading-relaxed">
-                Grade A5 Japanese beef, black garlic purée, wild mushroom glaze, finished with luxurious shaved black truffles.
+                Daging sapi Jepang kelas A5, puree bawang putih hitam, saus jamur liar, disempurnakan dengan serutan truffle hitam mewah.
               </p>
             </div>
           </motion.div>
@@ -226,13 +226,13 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/90 to-transparent"></div>
               <span class="absolute top-4 left-4 border border-[#C5A059]/30 text-[#C5A059] text-[9px] uppercase tracking-widest font-mono font-medium px-2.5 py-1 bg-zinc-950/80 backend-blur">
-                Artisanal Cocktails
+                Koktail Artisanal
               </span>
             </div>
             <div class="p-6">
               <h3 class="font-display font-medium text-lg text-[#C5A059] mb-2">Crimson Velvet</h3>
               <p class="text-xs text-white/60 font-sans leading-relaxed">
-                Aged bourbon matched with sweet dark blackberry reduction and smoked rosemary aromatics for a timeless classic.
+                Bourbon matang dipadukan dengan reduksi blackberry manis dan aroma rosemary asap untuk sentuhan klasik yang tak lekang waktu.
               </p>
             </div>
           </motion.div>
@@ -250,7 +250,7 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
               <div class="bg-white/5 p-2 rounded-sm border border-white/5">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbmS19Fpo9zeAoyLNWZgkkkoZixfhFMWPMbTeoGZErcQuM9JxGy1shTgvurZ-Np49_F-2WBBhTLYIp6e9iQ5yeJ9VVlJ9Y7_YhoslT3AkOrEhg0vOe_xcAOk7NbH2rMCr1zWd8Q1uESBHQ-i50As1WhgdGEZeJMczFogMF5fZuXoyEiVVgOMhKwVdID8xZDxR8nAwkie0QOPpoBDinlPpFrlJJe26HyHJayLg22t0ibDJR-g2MAibkcMPZxZbHyi3NFja4yG34gyvL"
-                  alt="Executive Chef Eleanor Vance"
+                  alt="Kepala Chef Eleanor Vance"
                   class="rounded-sm w-full h-96 object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-700"
                 />
               </div>
@@ -258,15 +258,15 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
 
             {/* Right Column: Narrative */}
             <div class="space-y-6">
-              <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">Head Chef &bull; Philosophy</span>
-              <h3 class="font-display font-light text-3xl md:text-5xl text-white italic leading-tight">"Gourmet is more than standard taste; it is a choreography of memories."</h3>
+              <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-[#C5A059] font-medium">Kepala Chef &bull; Filosofi</span>
+              <h3 class="font-display font-light text-3xl md:text-5xl text-white italic leading-tight">"Gourmet lebih dari sekadar rasa; ia adalah koreografi kenangan."</h3>
               <p class="text-xs text-white/60 font-sans leading-relaxed tracking-wider font-light">
-                Chef Eleanor Vance combines rigorous classical French training with a deep passion for Japanese minimalism. By utilizing local, seasonal ingredients, every plate becomes a story of seasonal poetry—arranged to appeal not just to taste buds, but to create life-defining gastronomic focal points.
+                Chef Eleanor Vance memadukan pelatihan klasik Prancis yang ketat dengan kecintaan mendalam pada minimalisme Jepang. Dengan memanfaatkan bahan lokal musiman, setiap piring menjadi cerita puisi musim—dirancang untuk menarik tidak hanya selera, tetapi juga menciptakan momen gastronomi yang mengubah hidup.
               </p>
               <div class="h-px w-24 bg-white/10"></div>
               <div>
                 <p class="font-display text-base font-normal text-white">Eleanor Vance</p>
-                <p class="text-[10px] text-white/40 font-mono tracking-widest mt-1">EXECUTIVE CULINARY DIRECTOR</p>
+                <p class="text-[10px] text-white/40 font-mono tracking-widest mt-1">DIREKTUR KULINER EKSEKUTIF</p>
               </div>
             </div>
           </div>

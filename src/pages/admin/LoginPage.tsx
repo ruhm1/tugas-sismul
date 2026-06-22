@@ -8,8 +8,8 @@ import { useAuth } from '../../hooks/useAuth';
 import { showToast } from '../../components/Toast';
 
 const schema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email('Email tidak valid'),
+  password: z.string().min(6, 'Kata sandi minimal 6 karakter'),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -28,10 +28,10 @@ export default function LoginPage() {
   const onSubmit = async (data: FormData) => {
     try {
       await login(data.email, data.password);
-      showToast('Login successful!', 'success');
+      showToast('Login berhasil!', 'success');
       navigate('/admin');
     } catch {
-      showToast('Invalid email or password.', 'error');
+      showToast('Email atau kata sandi tidak valid.', 'error');
     }
   };
 
@@ -42,8 +42,8 @@ export default function LoginPage() {
           <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#C5A059] to-[#8E6E3A] flex items-center justify-center mx-auto border border-white/10">
             <Star className="w-7 h-7 text-black fill-current" />
           </div>
-          <h1 className="font-display text-2xl text-white tracking-wide">Admin Login</h1>
-          <p className="text-xs text-white/40 font-mono">GOURMET CONTROL CENTER</p>
+          <h1 className="font-display text-2xl text-white tracking-wide">Login Admin</h1>
+          <p className="text-xs text-white/40 font-mono">PUSAT KONTROL GOURMET</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white/[0.02] border border-white/5 rounded-lg p-8 space-y-6">
@@ -59,12 +59,12 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Password</label>
+            <label className="text-[9px] font-mono text-white/40 uppercase tracking-widest">Kata Sandi</label>
             <input
               {...register('password')}
               type="password"
               className="w-full bg-[#0A0A0B] border border-white/10 focus:border-[#C5A059]/40 outline-none text-xs text-zinc-100 rounded-lg p-3.5 transition-all"
-              placeholder="Enter password"
+              placeholder="Masukkan kata sandi"
             />
             {errors.password && <p className="text-rose-400 text-[10px]">{errors.password.message}</p>}
           </div>
@@ -74,11 +74,11 @@ export default function LoginPage() {
             disabled={isSubmitting}
             className="w-full bg-[#C5A059] hover:bg-[#8E6E3A] disabled:opacity-50 text-black font-display font-medium tracking-[0.2em] uppercase text-[10px] py-4 rounded-lg transition-all cursor-pointer"
           >
-            {isSubmitting ? 'Authenticating...' : 'Sign In'}
+            {isSubmitting ? 'Mengautentikasi...' : 'Masuk'}
           </button>
 
           <p className="text-[10px] text-white/30 font-mono text-center">
-            Use your Firebase Auth credentials
+            Gunakan kredensial Firebase Auth Anda
           </p>
         </form>
       </div>

@@ -14,15 +14,15 @@ export default function AdminContactPage() {
   useEffect(() => { fetchData(); }, []);
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this message?')) return;
-    try { await api.delete(`/contacts/${id}`); showToast('Deleted', 'success'); fetchData(); } catch { showToast('Error', 'error'); }
+    if (!confirm('Hapus pesan ini?')) return;
+    try { await api.delete(`/contacts/${id}`); showToast('Dihapus', 'success'); fetchData(); } catch { showToast('Gagal', 'error'); }
   };
 
   return (
     <div className="space-y-6">
       <div>
-        <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Messages</span>
-        <h1 className="font-display font-light text-3xl text-white">Contact Messages</h1>
+        <span className="text-[10px] uppercase tracking-[0.25em] font-mono text-[#C5A059] block mb-1">Pesan</span>
+        <h1 className="font-display font-light text-3xl text-white">Pesan Kontak</h1>
       </div>
 
       {loading ? (
@@ -30,7 +30,7 @@ export default function AdminContactPage() {
       ) : messages.length === 0 ? (
         <div className="py-20 text-center border border-dashed border-white/10 rounded-xl">
           <Mail className="w-8 h-8 text-white/30 mx-auto mb-3" />
-          <p className="text-xs text-white/40">No messages yet.</p>
+          <p className="text-xs text-white/40">Belum ada pesan.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -42,7 +42,7 @@ export default function AdminContactPage() {
                   <p className="text-[10px] font-mono text-white/40 mt-0.5">{msg.name} &lt;{msg.email}&gt;</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-white/30">{new Date(msg.createdAt).toLocaleDateString()}</span>
+                  <span className="text-[10px] font-mono text-white/30">{new Date(msg.createdAt).toLocaleDateString('id-ID')}</span>
                   <button onClick={() => handleDelete(msg.id)} className="p-1.5 rounded border border-white/10 hover:border-rose-500/30 text-white/50 hover:text-rose-400 cursor-pointer"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
               </div>
