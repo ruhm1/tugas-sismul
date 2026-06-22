@@ -32,8 +32,8 @@ export default function MenuView({ onSuggestWinePairing }: MenuViewProps) {
   const fetchMenuItems = async () => {
     try {
       const res = await fetch('/api/menu');
-      const data = await res.json();
-      setMenuItems(data);
+      const json = await res.json();
+      setMenuItems(json.data);
     } catch (e) {
       console.error("Error fetching menu items:", e);
     } finally {
