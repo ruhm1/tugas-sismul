@@ -17,6 +17,8 @@ function getGemini(): GoogleGenAI {
 }
 
 // POST /api/chat - public
+const responseCache = new Map<string, {text: string, expiry: number}>();
+
 router.post('/', async (req: Request, res: Response) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: 'Message is required.' });
@@ -30,9 +32,7 @@ router.post('/', async (req: Request, res: Response) => {
   const fallbackLogic = () => {
     const match = knowledge.find((k: any) => {
       const q = k.question?.toLowerCase();
-      // Lebih fleksibel dalam pencocokan
       if (q && message.toLowerCase().includes(q)) return true;
-      // Coba mencocokkan kata kunci sederhana
       const keywords = q?.split(' ').filter((w: string) => w.length > 3) || [];
       return keywords.some((w: string) => message.toLowerCase().includes(w));
     });
@@ -45,6 +45,22 @@ router.post('/', async (req: Request, res: Response) => {
       text: 'Salam hangat dari GOURMET. Saya adalah AI Sommelier Anda. Saya dapat membantu dengan menu, reservasi, atau panduan alergi.',
     });
   };
+
+  // 1. Coba pencocokan ketat dari Knowledge Base DAHULU sebelum memanggil AI
+  // Ini menghemat kuota untuk pertanyaan yang sudah ada di database (FAQ)
+  const exactMatch = knowledge.find((k: any) => 
+    k.question && message.toLowerCase().includes(k.question.toLowerCase())
+  );
+  if (exactMatch) {
+    return res.json({ text: (exactMatch as any).answer });
+  }
+
+  // 2. Cek Cache In-Memory
+  const cacheKey = message.toLowerCase().trim();
+  const cached = responseCache.get(cacheKey);
+  if (cached && cached.expiry > Date.now()) {
+    return res.json({ text: cached.text });
+  }
 
   if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
     return fallbackLogic();
@@ -63,7 +79,18 @@ router.post('/', async (req: Request, res: Response) => {
     });
 
     const response = await chat.sendMessage({ message });
-    res.json({ text: response.text || 'I am at your service.' });
+    const replyText = response.text || 'I am at your service.';
+    
+    // Simpan ke cache selama 1 jam (3600000 ms) untuk menghemat kuota jika ditanya hal yang sama
+    responseCache.set(cacheKey, { text: replyText, expiry: Date.now() + 3600000 });
+    
+    // Bersihkan cache jika terlalu besar (lebih dari 100 item)
+    if (responseCache.size > 100) {
+      const firstKey = responseCache.keys().next().value;
+      if (firstKey) responseCache.delete(firstKey);
+    }
+
+    res.json({ text: replyText });
   } catch (err: any) {
     console.error('AI Error:', err.message, '- Falling back to knowledge base');
     return fallbackLogic();
