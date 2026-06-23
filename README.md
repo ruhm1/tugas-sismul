@@ -1,201 +1,201 @@
-# GOURMET — Restaurant Company Profile
+# GOURMET — Profil Perusahaan Restoran
 
-A full-stack restaurant company profile website with an elegant dark theme, AI-powered chatbot, online reservations, and a complete admin dashboard. Built with React, Express, PostgreSQL, and Prisma ORM.
+Website profil perusahaan restoran full-stack dengan tema gelap yang elegan, chatbot berbasis AI, reservasi online, dan dasbor admin yang lengkap. Dibangun menggunakan React, Express, Firebase Firestore, dan Firebase Authentication.
 
 ---
 
-## Tech Stack
+## Teknologi (Tech Stack)
 
-| Layer | Technologies |
-|-------|-------------|
+| Lapisan | Teknologi |
+|---------|-----------|
 | **Frontend** | React 19, Vite, Tailwind CSS v4, React Router DOM, Axios, React Hook Form, Zod, Lucide React, Motion |
 | **Backend** | Node.js, Express.js, JWT Authentication, Bcrypt, Multer, Helmet, CORS, Rate Limiting |
-| **Database** | PostgreSQL, Prisma ORM |
+| **Database & Auth**| Firebase Firestore, Firebase Authentication |
 | **AI** | Google Gemini API |
 
 ---
 
-## Features
+## Fitur Utama
 
-### Public Pages
-- **Landing Page** — Hero section, signature dishes, chef profile, quick reservation
-- **About** — Restaurant history, vision, mission, values, awards
-- **Menu** — Browse dishes with category filter, search, and wishlist
-- **Promotions** — Active promo banners with detail modal
-- **Gallery** — Filterable photo grid with lightbox preview
-- **Reservation** — Online booking form with Zod validation and reservation code generation
-- **Contact** — Google Maps embed, contact info, and message form
-- **AI Chatbot** — Gemini-powered sommelier assistant with updatable knowledge base
+### Halaman Publik
+- **Beranda (Landing Page)** — Bagian hero, menu andalan (signature), profil chef, reservasi cepat
+- **Tentang Kami (About)** — Sejarah restoran, visi, misi, nilai-nilai, penghargaan
+- **Menu** — Jelajahi hidangan dengan filter kategori, pencarian, dan fitur wishlist
+- **Promosi (Promotions)** — Banner promo aktif dengan modal detail
+- **Galeri (Gallery)** — Grid foto dengan filter kategori dan tampilan lightbox
+- **Reservasi (Reservation)** — Formulir pemesanan online dengan validasi Zod dan pembuatan kode reservasi
+- **Kontak (Contact)** — Sematan Google Maps, info kontak, dan formulir pesan
+- **AI Chatbot** — Asisten sommelier (pakar anggur) berbasis Gemini dengan basis pengetahuan yang dapat diperbarui
 
-### Admin Dashboard (JWT Protected)
-- Dashboard with statistics and bar charts
-- CRUD: Menu items, Promotions, Gallery, Restaurant Profile
-- Reservation management with status workflow (Pending → Confirmed → Completed → Cancelled)
-- Contact message inbox
+### Dasbor Admin (Dilindungi dengan JWT)
+- Dasbor dengan statistik dan diagram batang (bar charts)
+- CRUD: Menu hidangan, Promosi, Galeri, Profil Restoran
+- Manajemen Reservasi dengan alur status (Menunggu → Dikonfirmasi → Selesai → Dibatalkan)
+- Kotak masuk pesan kontak
 
 ---
 
-## Project Structure
+## Struktur Proyek
 
 ```
-├── prisma/
-│   ├── schema.prisma        # Database schema (9 tables)
-│   └── seed.ts              # Seed data
 ├── src/
-│   ├── components/          # Reusable UI components
-│   ├── hooks/               # Auth context & hooks
+│   ├── components/          # Komponen UI yang dapat digunakan ulang
+│   ├── hooks/               # Konteks & hooks untuk Auth
 │   ├── layouts/             # MainLayout, AdminLayout
-│   ├── pages/               # Route page components
-│   │   └── admin/           # Admin panel pages
-│   ├── server/              # Backend modules
-│   │   ├── middleware/       # Auth, upload, security
-│   │   └── routes/          # API route handlers
-│   ├── services/            # Axios API client
-│   ├── types.ts             # TypeScript interfaces
-│   ├── App.tsx              # Router & route definitions
-│   └── main.tsx             # Entry point
-├── server.ts                # Express server entry
+│   ├── pages/               # Komponen halaman rute
+│   │   └── admin/           # Halaman panel admin
+│   ├── server/              # Modul Backend
+│   │   ├── middleware/      # Auth, upload, keamanan (security)
+│   │   ├── routes/          # API route handlers
+│   │   └── seed.ts          # Skrip penyemaian data (seed) untuk Firebase
+│   ├── services/            # Klien API Axios
+│   ├── types.ts             # Antarmuka (Interfaces) TypeScript
+│   ├── App.tsx              # Definisi router & rute
+│   └── main.tsx             # Titik masuk utama (Entry point)
+├── server.ts                # Titik masuk server Express
 └── vite.config.ts
 ```
 
 ---
 
-## Getting Started
+## Memulai (Getting Started)
 
-### Prerequisites
+### Prasyarat Instalasi
 
-- **Node.js** 18+
-- **PostgreSQL** 14+
+- **Node.js** versi 18 atau lebih baru
+- **Firebase Project** (Pastikan Firestore dan Authentication sudah diaktifkan)
 
-### Setup
+### Tahap Instalasi & Pengaturan Lingkungan (Setup)
 
-1. **Install dependencies**
+1. **Instal dependensi**
    ```bash
    npm install
    ```
 
-2. **Configure environment variables**
+2. **Konfigurasi Environment Variables (Variabel Lingkungan)**
 
-   Copy `.env.example` to `.env` and fill in your values:
+   Salin file `.env.example` menjadi `.env` dan isi dengan nilai Firebase dan Gemini API Anda:
    ```env
-   DATABASE_URL="postgresql://user:password@localhost:5432/gourmet?schema=public"
-   JWT_SECRET="your-secret-key"
-   JWT_EXPIRES_IN="24h"
-   GEMINI_API_KEY="your-gemini-api-key"
-   PORT=3000
+   # Gemini API
+   GEMINI_API_KEY="kunci-api-gemini-anda"
+
+   # URL Aplikasi
+   APP_URL="http://localhost:3000"
+   
+   # Firebase Admin SDK (untuk Server-side)
+   # Dapatkan dari Firebase Console > Project Settings > Service Accounts > Generate New Private Key
+   FIREBASE_PROJECT_ID="id-proyek-firebase-anda"
+   FIREBASE_CLIENT_EMAIL="akun-layanan-anda@proyek-anda.iam.gserviceaccount.com"
+   FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nKUNCI_ANDA_DI_SINI\n-----END PRIVATE KEY-----\n"
+
+   # Firebase Client SDK (untuk Frontend, menggunakan awalan VITE_)
+   # Dapatkan dari Firebase Console > Project Settings > General > Your apps
+   VITE_FIREBASE_API_KEY="kunci-api-firebase-anda"
+   VITE_FIREBASE_AUTH_DOMAIN="proyek-anda.firebaseapp.com"
+   VITE_FIREBASE_PROJECT_ID="id-proyek-firebase-anda"
+   VITE_FIREBASE_STORAGE_BUCKET="proyek-anda.firebasestorage.app"
+   VITE_FIREBASE_MESSAGING_SENDER_ID="id-pengirim-anda"
+   VITE_FIREBASE_APP_ID="id-aplikasi-anda"
    ```
 
-3. **Run database migrations**
+3. **Memasukkan Data Awal (Seed Database)**
+   
+   Isi Firestore dengan data sampel awal dan buat akun pengguna admin:
    ```bash
-   npx prisma migrate dev --name init
+   npm run seed
    ```
 
-4. **Seed the database**
-   ```bash
-   npm run prisma:seed
-   ```
-
-5. **Start the development server**
+4. **Menjalankan Program (Server Pengembangan)**
    ```bash
    npm run dev
    ```
 
-   The app will be available at `http://localhost:3000`.
+   Aplikasi akan berjalan dengan benar dan dapat diakses di `http://localhost:3000`.
 
-### Default Admin Credentials
+### Kredensial Default Admin
 
-| Email | Password |
-|-------|----------|
+| Email | Kata Sandi (Password) |
+|-------|-----------------------|
 | admin@gourmet.com | admin123 |
 
 ---
 
-## Available Scripts
+## Daftar Skrip Tersedia
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | TypeScript type checking |
-| `npm run prisma:generate` | Generate Prisma Client |
-| `npm run prisma:migrate` | Run database migrations |
-| `npm run prisma:seed` | Seed database with sample data |
-| `npm run prisma:studio` | Open Prisma Studio |
+| Perintah | Deskripsi |
+|----------|-----------|
+| `npm run dev` | Menjalankan server pengembangan |
+| `npm run build` | Membangun aplikasi untuk produksi (build) |
+| `npm run start` | Menjalankan server produksi |
+| `npm run lint` | Mengecek pengetikan TypeScript |
+| `npm run seed` | Mengisi database Firestore dengan data sampel |
 
 ---
 
-## API Endpoints
+## Endpoint API
 
-### Public
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/menu` | List menu items (search, filter, paginate) |
-| GET | `/api/menu/categories` | List categories |
-| GET | `/api/promotions` | List promotions |
-| GET | `/api/gallery` | List gallery items |
-| GET | `/api/restaurant` | Get restaurant profile |
-| POST | `/api/reservations` | Create reservation |
-| POST | `/api/contacts` | Send contact message |
-| POST | `/api/chat` | Chat with AI assistant |
+### Publik
+| Metode | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/menu` | Daftar menu hidangan (pencarian, filter, paginasi) |
+| GET | `/api/menu/categories` | Daftar kategori menu |
+| GET | `/api/promotions` | Daftar promosi aktif |
+| GET | `/api/gallery` | Daftar foto galeri |
+| GET | `/api/restaurant` | Mengambil profil restoran |
+| POST | `/api/reservations` | Membuat reservasi baru |
+| POST | `/api/contacts` | Mengirim pesan kontak |
+| POST | `/api/chat` | Mengobrol dengan asisten AI |
 
-### Protected (JWT Required)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/login` | Admin login |
-| GET | `/api/auth/me` | Get current user |
-| POST | `/api/menu` | Create menu item |
-| PUT | `/api/menu/:id` | Update menu item |
-| DELETE | `/api/menu/:id` | Delete menu item |
-| GET | `/api/reservations` | List reservations |
-| PUT | `/api/reservations/:id/status` | Update reservation status |
-| DELETE | `/api/reservations/:id` | Delete reservation |
-| POST | `/api/promotions` | Create promotion |
-| PUT | `/api/promotions/:id` | Update promotion |
-| DELETE | `/api/promotions/:id` | Delete promotion |
-| POST | `/api/gallery` | Create gallery item |
-| PUT | `/api/gallery/:id` | Update gallery item |
-| DELETE | `/api/gallery/:id` | Delete gallery item |
-| GET | `/api/contacts` | List contact messages |
-| DELETE | `/api/contacts/:id` | Delete contact message |
-| PUT | `/api/restaurant` | Update restaurant profile |
-| GET | `/api/admin/stats` | Get dashboard statistics |
-
----
-
-## Database Schema
-
-9 tables with full relational mapping:
-
-- **users** — Admin accounts with bcrypt-hashed passwords
-- **restaurant_profiles** — Restaurant information and settings
-- **categories** — Menu categories (Makanan, Minuman, Dessert, Paket Spesial)
-- **menus** — Menu items with category relation, pricing, and availability
-- **promotions** — Promo banners with date ranges
-- **galleries** — Photo gallery with category filtering
-- **reservations** — Bookings with unique codes and status workflow
-- **contacts** — Contact form submissions
-- **chatbot_knowledge** — AI chatbot knowledge base entries
+### Terlindungi (Memerlukan JWT)
+| Metode | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| POST | `/api/auth/login` | Login admin |
+| GET | `/api/auth/me` | Mengambil data pengguna saat ini |
+| POST | `/api/menu` | Menambah menu hidangan baru |
+| PUT | `/api/menu/:id` | Memperbarui menu hidangan |
+| DELETE | `/api/menu/:id` | Menghapus menu hidangan |
+| GET | `/api/reservations` | Daftar seluruh reservasi |
+| PUT | `/api/reservations/:id/status`| Memperbarui status reservasi |
+| DELETE | `/api/reservations/:id` | Menghapus reservasi |
+| POST | `/api/promotions` | Menambah promosi baru |
+| PUT | `/api/promotions/:id` | Memperbarui promosi |
+| DELETE | `/api/promotions/:id` | Menghapus promosi |
+| POST | `/api/gallery` | Menambah foto galeri baru |
+| PUT | `/api/gallery/:id` | Memperbarui foto galeri |
+| DELETE | `/api/gallery/:id` | Menghapus foto galeri |
+| GET | `/api/contacts` | Daftar pesan kontak masuk |
+| DELETE | `/api/contacts/:id` | Menghapus pesan kontak |
+| PUT | `/api/restaurant` | Memperbarui profil restoran |
+| GET | `/api/admin/stats` | Mengambil data statistik dasbor |
 
 ---
 
-## Deployment
+## Skema Database
 
-### Frontend (Vercel)
-```bash
-npm run build
-vercel --prod
-```
+Terdapat 9 koleksi yang disimpan dalam Firebase Firestore:
 
-### Backend (Railway)
-1. Create a PostgreSQL database on Railway
-2. Set environment variables (`DATABASE_URL`, `JWT_SECRET`, `GEMINI_API_KEY`)
-3. Deploy: `railway up`
-4. Run migrations: `npx prisma migrate deploy`
-5. Seed: `npx tsx prisma/seed.ts`
+- **users** — Data profil admin (Autentikasi ditangani oleh Firebase Auth)
+- **restaurant_profiles** — Informasi restoran dan pengaturan
+- **categories** — Kategori hidangan (Makanan, Minuman, Dessert, Paket Spesial)
+- **menus** — Menu hidangan dengan harga, tag kategori, dan ketersediaan
+- **promotions** — Banner promo dengan rentang tanggal
+- **galleries** — Galeri foto dengan penyaringan kategori
+- **reservations** — Data pemesanan meja dengan kode unik dan alur status
+- **contacts** — Formulir pengajuan pesan kontak
+- **chatbot_knowledge** — Entri basis pengetahuan untuk AI chatbot
 
 ---
 
-## License
+## Deployment (Penyebaran)
 
-This project is built for educational purposes.
+### Vercel / Railway / Heroku
+Aplikasi ini adalah *monolithic full-stack app* di mana Vite membangun (*build*) frontend dan Express menyajikannya (*serve*).
+1. Atur Environment Variables yang diperlukan di platform hosting (`FIREBASE_*`, `VITE_FIREBASE_*`, `GEMINI_API_KEY`, dll)
+2. Build aplikasi: `npm run build`
+3. Jalankan aplikasi: `npm run start`
+
+---
+
+## Lisensi
+
+Proyek ini dibuat untuk tujuan edukasi (tugas kuliah).
