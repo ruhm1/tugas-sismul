@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Calendar, Users, Wine, Clock, Landmark, GlassWater } from 'lucide-react';
+// @ts-ignore
+import bgVideo from '../media/WhatsApp Video 2026-06-23 at 10.31.18 PM.mp4';
 
 interface HeroViewProps {
   onNavigateToBooking: (date: string, guests: number, time: string) => void;
@@ -21,13 +23,25 @@ export default function HeroView({ onNavigateToBooking, onNavigateToMenu }: Hero
     <div id="hero-view-container" class="font-sans text-[#E5E5E5] pb-20">
       {/* Hero Section */}
       <div class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background Hotlinked Image */}
+        {/* Background Hotlinked Image & Video */}
         <div class="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            onEnded={(e) => {
+              e.currentTarget.currentTime = 0;
+              e.currentTarget.play();
+            }}
+            src={bgVideo}
+            class="absolute inset-0 w-full h-full object-cover filter brightness-[0.2] scale-105 transform transition duration-[15s]"
+          />
           <img
             id="hero-bg-img"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp9FIZCeC2CBRjG9-kdApBFpUD_W9Qr56iYZfyzIb2hsJ3I85egopDzqfsMap0qav-LQ08qBFxXa6Asoh0cKgoEaIUnm8mxx_VRGCyGq1dYI68ulm_Vd2RYRwhUkhokdMcWuyOImaEwxnIY_ueBb5T5PqYf4nH4gC9vFkng-SkqcreuMYKhbi--Xq0fdO0APQxNLeNtpavzLY8a9Ods7iFZnspDUMLMkUBX36kfqhI8Dd-rNi7qVIuEeXvN3sWpyxbiU6brMTywDie"
             alt="Ruang Makan GOURMET"
-            class="w-full h-full object-cover filter brightness-[0.2] scale-105 transform transition duration-[15s]"
+            class="absolute inset-0 w-full h-full object-cover filter brightness-[0.2] scale-105 transform transition duration-[15s] -z-10"
           />
           {/* Subtle Golden Vignette Overlay */}
           <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-transparent to-[#0A0A0B]/80"></div>
