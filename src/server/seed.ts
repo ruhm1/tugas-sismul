@@ -225,27 +225,31 @@ async function seed() {
   // 7. Seed chatbot knowledge base
   const knowledgeItems = [
     {
-      question: 'What are your operating hours?',
-      answer: 'GOURMET is open Wednesday through Sunday from 5:00 PM to 11:30 PM. We are closed on Mondays and Tuesdays. Executive Cellar bookings require 48 hours advance notice.',
+      question: 'Kapan jam operasional GOURMET?',
+      answer: 'GOURMET buka Rabu hingga Minggu pukul 17.00-23.30. Kami tutup setiap Senin dan Selasa. Pemesanan Executive Cellar memerlukan konfirmasi minimal 48 jam sebelumnya.',
       category: 'general',
+      keywords: ['jam operasional', 'buka', 'tutup', 'executive cellar'],
       isActive: true,
     },
     {
-      question: 'Where is the restaurant located?',
-      answer: 'GOURMET is located at 12 Rue de la Gastronomie, Paris 75008, France. We offer valet parking service for all dinner guests.',
+      question: 'Di mana lokasi restoran GOURMET?',
+      answer: 'GOURMET berlokasi di 12 Rue de la Gastronomie, Paris 75008, Prancis. Kami menyediakan layanan valet parking untuk tamu makan malam.',
       category: 'general',
+      keywords: ['lokasi', 'alamat', 'paris', 'valet'],
       isActive: true,
     },
     {
-      question: 'Do you accommodate food allergies?',
-      answer: 'Absolutely. We take all allergies very seriously. Please inform us during reservation and our culinary team will prepare a safe, equally exquisite alternative menu. We are fully equipped to handle nut, gluten, dairy, and shellfish allergies.',
+      question: 'Apakah GOURMET dapat mengakomodasi alergi makanan?',
+      answer: 'Tentu. Kami menangani alergi dengan sangat serius. Mohon informasikan kebutuhan alergi atau pantangan makanan saat reservasi agar tim kuliner kami dapat menyiapkan menu alternatif yang aman, elegan, dan tetap sesuai standar GOURMET. Untuk scallop crudo atau kebutuhan bebas gluten, tim dapur akan memastikan bahan dan proses penyajiannya aman dari risiko kontaminasi silang.',
       category: 'menu',
+      keywords: ['alergi', 'bebas gluten', 'gluten', 'scallop', 'crudo', 'shellfish', 'kontaminasi silang'],
       isActive: true,
     },
     {
-      question: 'What is the dress code?',
-      answer: 'We maintain a smart elegant dress code. Gentlemen are encouraged to wear jackets. No sportswear, shorts, or flip-flops please.',
+      question: 'Apa dress code di GOURMET?',
+      answer: 'Kami menerapkan dress code smart elegant. Tamu pria disarankan mengenakan jaket, dan kami mohon untuk tidak mengenakan pakaian olahraga, celana pendek, atau sandal jepit.',
       category: 'general',
+      keywords: ['dress code', 'pakaian', 'smart elegant', 'jaket'],
       isActive: true,
     },
   ];
