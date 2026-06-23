@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
 import { BgmProvider } from './hooks/useBgm';
 import Toast from './components/Toast';
@@ -29,7 +29,13 @@ import AdminProfilePage from './pages/admin/AdminProfilePage';
 
 // Wrapper for HeroView to pass navigation props
 function HomePage() {
-  return <HeroView onNavigateToBooking={() => {}} onNavigateToMenu={() => {}} />;
+  const navigate = useNavigate();
+  return (
+    <HeroView 
+      onNavigateToBooking={(date, guests, time) => navigate('/reservation', { state: { date, guests, time } })} 
+      onNavigateToMenu={() => navigate('/menu')} 
+    />
+  );
 }
 
 // Wrapper for MenuView
@@ -39,7 +45,18 @@ function MenuPage() {
 
 // Wrapper for ReservationView
 function ReservationPage() {
-  return <ReservationView onBookingSuccess={() => {}} />;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state as { date?: string, guests?: number, time?: string } | null;
+  
+  return (
+    <ReservationView 
+      initialDate={state?.date}
+      initialGuests={state?.guests}
+      initialTime={state?.time}
+      onBookingSuccess={() => navigate('/')} 
+    />
+  );
 }
 
 export default function App() {
